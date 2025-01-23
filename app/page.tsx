@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { ServicesTile } from "./components/services";
 import { Workflow } from "./components/workflow";
 import { ConsultForm } from "./consult/consult_form";
@@ -15,14 +16,18 @@ export default function Home() {
         <div className="absolute size-1/6 border border-teal-400/20 animate-pulse"></div>
         <div className="absolute size-1/8 border border-teal-400/20 animate-pulse"></div>
         <div className="text-center max-w-6xl absolute flex flex-col items-center gap-8 sm:gap-10">
-          <h1 className="text-6xl sm:text-7xl md:text-8xl font-extrabold">Your Vision, Our Code</h1>
-          <p className="text-lg sm:text-xl md:text-2xl font-light tracking-wide text-gray-300 max-w-3xl leading-relaxed">
+          <h1 className="text-4xl sm:text-6xl md:text-8xl font-extrabold">Your Vision, Our Code</h1>
+          <p className="sm:text-lg md:text-xl font-light tracking-wide text-gray-300 max-w-3xl leading-relaxed">
             At CODE4CODE, we transform ambitious ideas into world-class digital solutions. Through cutting-edge
             technology and unmatched expertise, we empower businesses to succeed in a competitive world.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button className="w-full sm:w-auto" label="How you can benefit" outline={true} />
-            <Button className="w-full sm:w-auto" label="Book consultation" />
+            <Link href="/services">
+              <Button className="w-full sm:w-auto" label="Book Service" outline={true} />
+            </Link>
+            <Link href="/consult">
+              <Button className="w-full sm:w-auto" label="Book consultation" />
+            </Link>
           </div>
         </div>
       </div>

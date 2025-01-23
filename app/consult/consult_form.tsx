@@ -1,7 +1,6 @@
 "use client";
+import { Button, toast } from "c4cui";
 import { useState } from "react";
-import { Button } from "../components/button";
-import { toast } from "react-toastify";
 
 export const ConsultForm = () => {
   const [sending, setSending] = useState(false);

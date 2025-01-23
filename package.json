@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "c4cui": "^1.5.9",
+    "c4cui": "^1.7.0",
     "next": "15.1.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

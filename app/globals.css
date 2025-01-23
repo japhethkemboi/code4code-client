@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #2dd4bf;
+  --secondary-color: #00e0d4;
+  --background-color: #eaeff2;
+  --text-color: #000;
+  --hero-bg-color: #000;
+  --hero-text-color: #fff;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: #00d1ff;
+    --secondary-color: #2a2e35;
+    --background-color: #1a1c20;
+    --hero-bg-color: #000;
+    --hero-text-color: #fff;
+  }
+} */
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("./fonts/satoshi/Satoshi-Regular.woff2") format("woff2"),
+    url("./fonts/satoshi/Satoshi-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("./fonts/satoshi/Satoshi-Bold.woff2") format("woff2"),
+    url("./fonts/satoshi/Satoshi-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("./fonts/satoshi/Satoshi-Black.woff2") format("woff2"),
+    url("./fonts/satoshi/Satoshi-Black.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+}
+
+body {
+  font-family: "Satoshi", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  color: #fff;
+}

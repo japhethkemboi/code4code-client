@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const fetchConfig = async (
   url: string,
   options: RequestInit = {}
@@ -52,3 +53,4 @@ export const fetchConfig = async (
     };
   }
 };
+/* eslint-disable @typescript-eslint/no-explicit-any */

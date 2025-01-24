@@ -3,7 +3,6 @@ import React, { useRef, useState, useEffect } from "react";
 import { Button, Cropper, InputComponent, Modal, RichTextEditor, toast, ToastContainer, useModal } from "c4cui";
 import "react-quill-new/dist/quill.snow.css";
 import { PiImage, PiPen, PiPlus } from "react-icons/pi";
-import { useAuth } from "@/app/AuthProvider";
 import { useService } from "@/app/ServiceContext";
 
 export default function CreateService() {
@@ -14,7 +13,6 @@ export default function CreateService() {
   const [isClient, setIsClient] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const { openModal, closeModal, isOpen, modalContent } = useModal();
-  const { authFetch } = useAuth();
   const { createService } = useService();
 
   useEffect(() => {

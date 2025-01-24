@@ -9,11 +9,13 @@ export const ServicesTile = () => {
   const { services } = useService();
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % services?.length! || 0);
-    }, 7000);
+    if (services) {
+      const interval = setInterval(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % services.length);
+      }, 7000);
 
-    return () => clearInterval(interval);
+      return () => clearInterval(interval);
+    }
   }, []);
 
   if (!services) {

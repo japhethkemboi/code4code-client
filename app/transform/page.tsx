@@ -1,3 +1,5 @@
+"use client";
+import { Button } from "c4cui";
 import { BsArrowLeft } from "react-icons/bs";
 
 export default function Transform() {

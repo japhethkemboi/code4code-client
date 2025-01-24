@@ -1,11 +1,16 @@
 "use client";
-import { Button } from "@/app/components/button";
-import services from "../services/services.json";
+import { Button } from "c4cui";
 import { useEffect, useState } from "react";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+import { useService } from "../ServiceContext";
 
 export const ServicesTile = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { services } = useService();
+
+  if (!services) {
+    return <p>Loading services...</p>;
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -42,7 +47,7 @@ export const ServicesTile = () => {
 
         <div className="flex flex-col gap-4">
           <a
-            href={`/service/${Buffer.from(services[currentIndex]?.id.toString()).toString("base64")}`}
+            href={`/service/${services[currentIndex]?.slug}`}
             className="cursor-pointer text-lg sm:text-2xl md:text-4xl font-bold tracking-tight text-darkGray leading-tight"
           >
             {services[currentIndex]?.name}
@@ -53,7 +58,7 @@ export const ServicesTile = () => {
         </div>
         <div className="flex flex-col gap-4 w-full sm:flex-row">
           <div className="flex flex-col gap-4 w-full sm:flex-row">
-            <Button label="Learn More" outline={true} />
+            <Button label="Learn More" outline={true} invert={true} />
             <Button className="w-full sm:w-auto" label="Get Service" />
           </div>
           <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-4 mt-auto max-w-4xl self-center">
@@ -61,15 +66,25 @@ export const ServicesTile = () => {
               {services.map((_, index) => (
                 <div
                   key={index}
-                  className={`size-1 sm:size-2 md:size-3 rounded-full ${
+                  className={`size-[2px] sm:size-1 md:size-2 rounded-full ${
                     index === currentIndex ? "bg-black w-5" : "bg-teal-400"
                   }`}
                 ></div>
               ))}
             </div>
             <div className="flex gap-2">
-              <Button outline={true} onClick={handlePrevious} icon={<BiChevronLeft size={24} />} />
-              <Button outline={true} onClick={handleNext} icon={<BiChevronRight size={24} />} />
+              <Button
+                outline={true}
+                className="border-none p-2"
+                onClick={handlePrevious}
+                icon={<BiChevronLeft size={24} />}
+              />
+              <Button
+                outline={true}
+                className="border-none p-2"
+                onClick={handleNext}
+                icon={<BiChevronRight size={24} />}
+              />
             </div>
           </div>
         </div>

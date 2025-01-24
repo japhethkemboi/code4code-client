@@ -1,4 +1,4 @@
-import { Button } from "@/app/components/button";
+import { Button } from "c4cui";
 import { CgArrowTopRight } from "react-icons/cg";
 
 export const Workflow = () => {

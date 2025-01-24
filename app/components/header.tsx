@@ -2,16 +2,20 @@
 import { useState } from "react";
 import { BiChevronDown, BiMenuAltRight } from "react-icons/bi";
 import { CgClose } from "react-icons/cg";
-import services from "../services/services.json";
 import { GoArrowUpRight } from "react-icons/go";
 import Link from "next/link";
+import { Button } from "c4cui";
+import { PiPlus } from "react-icons/pi";
+import { useService } from "../ServiceContext";
 
 export const Header = () => {
   const [isServicesHovered, setIsServicesHovered] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isServiceMenuOpen, setIsServiceMenuOpen] = useState(true);
+  const { services } = useService();
 
   return (
-    <header className="fixed z-50 w-full flex justify-between items-center p-4 bg-black text-white backdrop-blur">
+    <header className="fixed z-30 w-full flex justify-between items-center p-4 bg-black text-white backdrop-blur">
       <Link
         href="/"
         className="text-xl md:text-2xl uppercase tracking-wider text-gradient cursor-pointer hover:scale-105 hover:text-teal-400"
@@ -21,9 +25,9 @@ export const Header = () => {
 
       <div className="hidden md:flex gap-6 items-center">
         <Link
-          href="/services"
+          href="/service/list"
           onMouseEnter={() => setIsServicesHovered(true)}
-          className={`font-semibold hover:text-teal-400 transition-colors duration-300 hover:border-b ${
+          className={`hover:text-teal-400 transition-colors duration-300 hover:border-b ${
             isServicesHovered && "text-teal-400 border-b"
           }`}
         >
@@ -32,20 +36,20 @@ export const Header = () => {
         <Link
           href="/consult"
           onMouseEnter={() => setIsServicesHovered(false)}
-          className="font-semibold hover:text-teal-400 transition-colors duration-300 hover:border-b"
+          className="hover:text-teal-400 transition-colors duration-300 hover:border-b"
         >
           Book consultation
         </Link>
         <Link
           href={process.env.NEXT_PUBLIC_BLOG_URL || "/blog"}
           onMouseEnter={() => setIsServicesHovered(false)}
-          className="font-semibold hover:text-teal-400 transition-colors duration-300 hover:border-b"
+          className="hover:text-teal-400 transition-colors duration-300 hover:border-b"
         >
           Blog
         </Link>
         <Link
           href="mailto:contact@code4code.dev"
-          className="flex items-center font-semibold hover:text-teal-400 transition-colors duration-300 hover:border-b"
+          className="flex items-center hover:text-teal-400 transition-colors duration-300 hover:border-b"
         >
           Contact us
           <GoArrowUpRight />
@@ -60,7 +64,7 @@ export const Header = () => {
         >
           <div className="flex gap-8 max-w-4xl">
             <div className="flex flex-col p-4 gap-4 items-start grow">
-              <p className="font-semibold text-2xl">Our Services</p>
+              <p className="text-2xl">Our Services</p>
               <p>
                 At CODE4CODE, we specialize in cutting-edge IT solutions designed to elevate your business. Our team of
                 expert developers is committed to delivering innovative software, tailored to your specific needs. With
@@ -68,12 +72,12 @@ export const Header = () => {
                 possible, making us the ideal partner to bring your vision to life.
               </p>
 
-              <Link href="/services" onClick={() => setIsServicesHovered(false)} className="hover:text-teal-400">
+              <Link href="/service/list" onClick={() => setIsServicesHovered(false)} className="hover:text-teal-400">
                 All Services
               </Link>
             </div>
             <div className="flex flex-col p-4 gap-3 whitespace-nowrap items-start">
-              {services.slice(0, 5).map((service, index) => (
+              {services?.slice(0, 5).map((service, index) => (
                 <Link key={index} href="" className="hover:text-teal-400 transition-colors duration-300">
                   {service.name}
                 </Link>
@@ -89,53 +93,51 @@ export const Header = () => {
         </button>
 
         {isMenuOpen && (
-          <div className="absolute top-16 right-0 w-full bg-black text-white p-4 flex flex-col gap-4 h-screen overflow-y-auto">
+          <div className="absolute top-14 right-0 w-full bg-black text-white p-4 flex flex-col gap-4 h-screen overflow-y-auto">
             <div className="flex flex-col gap-4 items-start w-full">
-              <Link
-                href="/services"
-                onClick={() => setIsMenuOpen(false)}
-                className="flex justify-between gap-4 font-semibold hover:text-teal-400 transition-colors duration-300 w-full"
-              >
-                Services
-                <BiChevronDown size={18} />
-              </Link>
-              <div className="flex flex-col gap-4 pl-4 items-start w-full">
-                {services.slice(0, 6).map((service, index) => (
+              <p className="flex justify-between gap-4 w-full items-center">
+                <Link href="/service/list" className="hover:text-teal-400 transition-colors duration-300 text-start">
+                  Services
+                </Link>
+                <Button
+                  onClick={() => setIsServiceMenuOpen(!isServiceMenuOpen)}
+                  icon={isServiceMenuOpen ? <BiChevronDown size={18} /> : <PiPlus size={18} />}
+                  outline={true}
+                  className="border-none p-1"
+                />
+              </p>
+              {isServiceMenuOpen && (
+                <div className="flex flex-col gap-4 pl-4 items-start w-full">
+                  {services?.slice(0, 6).map((service, index) => (
+                    <Link
+                      key={index}
+                      href={`/service/${service.slug}`}
+                      className="hover:text-teal-400 transition-colors duration-300 w-full text-start"
+                    >
+                      {service.name}
+                    </Link>
+                  ))}
                   <Link
-                    key={index}
-                    href="/services"
-                    onClick={() => setIsMenuOpen(false)}
+                    href="/service/list"
                     className="hover:text-teal-400 transition-colors duration-300 w-full text-start"
                   >
-                    {service.name}
+                    All services
                   </Link>
-                ))}
-                <Link
-                  href="/services"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="hover:text-teal-400 transition-colors duration-300 w-full text-start"
-                >
-                  All services
-                </Link>
-              </div>
-              <Link
-                href="/consult"
-                onClick={() => setIsMenuOpen(false)}
-                className="font-semibold hover:text-teal-400 transition-colors duration-300 w-full text-start"
-              >
+                </div>
+              )}
+              <Link href="/consult" className="hover:text-teal-400 transition-colors duration-300 w-full text-start">
                 Book consultation
               </Link>
               <Link
                 href={process.env.NEXT_PUBLIC_BLOG_URL || "/blog"}
-                onClick={() => setIsMenuOpen(false)}
-                className="font-semibold hover:text-teal-400 transition-colors duration-300 w-full text-start"
+                className="hover:text-teal-400 transition-colors duration-300 w-full text-start"
               >
                 Blog
               </Link>
 
               <Link
                 href="mailto:contact@code4code.dev"
-                className="flex items-center font-semibold hover:text-teal-400 transition-colors duration-300 w-full"
+                className="flex items-center hover:text-teal-400 transition-colors duration-300 w-full"
               >
                 Contact Us
                 <GoArrowUpRight />

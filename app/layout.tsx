@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "./components/header";
 import { Footer } from "./components/footer";
+import { Provider } from "./Providers";
 
 export const metadata: Metadata = {
   title: "CODE4CODE",
@@ -20,9 +21,11 @@ export default function RootLayout({
         <meta name="theme-color" content="black" />
       </head>
       <body className={`antialiased`}>
-        <Header />
-        {children}
-        <Footer />
+        <Provider>
+          <Header />
+          {children}
+          <Footer />
+        </Provider>
       </body>
     </html>
   );

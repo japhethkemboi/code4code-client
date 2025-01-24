@@ -1,12 +1,7 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  mode: "jit",
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./app/**/*.{js,jsx,ts,tsx}", "node_modules/c4cui/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {

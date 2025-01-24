@@ -8,17 +8,17 @@ export const ServicesTile = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { services } = useService();
 
-  if (!services) {
-    return <p>Loading services...</p>;
-  }
-
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % services.length);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % services?.length! || 0);
     }, 7000);
 
     return () => clearInterval(interval);
   }, []);
+
+  if (!services) {
+    return <p>Loading services...</p>;
+  }
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % services.length);

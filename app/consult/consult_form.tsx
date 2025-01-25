@@ -45,50 +45,54 @@ export const ConsultForm = () => {
   };
 
   return (
-    <form className="w-full max-w-2xl space-y-8 bg-transparent" onSubmit={handleSubmit}>
-      <div className="flex flex-col gap-6">
-        <InputComponent
-          name="name"
-          value={formValues.name}
-          onChange={(e) => setFormValues((prev) => ({ ...prev, name: e }))}
-          minLength={4}
-          placeholder="Full Name"
-          required
-        />
-        <InputComponent
-          name="organization"
-          minLength={2}
-          value={formValues.organization}
-          onChange={(e) => setFormValues({ ...formValues, organization: e })}
-          placeholder="Company/Organization"
-        />
-        <InputComponent
-          name="phone"
-          minLength={9}
-          value={formValues.phone}
-          onChange={(e) => setFormValues({ ...formValues, phone: e })}
-          placeholder="Phone Number"
-          type="number"
-        />
-        <InputComponent
-          name="email"
-          type="email"
-          value={formValues.email}
-          onChange={(e) => setFormValues({ ...formValues, email: e })}
-          placeholder="Email Address"
-          required
-        />
-        <InputComponent
-          required
-          minLength={10}
-          name="message"
-          value={formValues.message}
-          onChange={(e) => setFormValues({ ...formValues, organization: e })}
-          placeholder="How can we assist you?"
-          rows={5}
-        />
-      </div>
-      <Button disabled={sending} label={sending ? "Sending..." : "Book Consultation"} className="ml-auto" />
+    <form className="flex flex-col shrink-0 grow w-full gap-4 max-w-4xl relative" onSubmit={handleSubmit}>
+      <InputComponent
+        name="name"
+        value={formValues.name}
+        onChange={(e) => setFormValues((prev) => ({ ...prev, name: e }))}
+        minLength={4}
+        placeholder="Full Name"
+        required
+      />
+      <InputComponent
+        name="organization"
+        minLength={2}
+        value={formValues.organization}
+        onChange={(e) => setFormValues({ ...formValues, organization: e })}
+        placeholder="Company/Organization"
+      />
+      <InputComponent
+        name="phone"
+        minLength={9}
+        value={formValues.phone}
+        onChange={(e) => setFormValues({ ...formValues, phone: e })}
+        placeholder="Phone Number"
+        type="number"
+      />
+      <InputComponent
+        name="email"
+        type="email"
+        value={formValues.email}
+        onChange={(e) => setFormValues({ ...formValues, email: e })}
+        placeholder="Email Address"
+        required
+      />
+      <InputComponent
+        required
+        minLength={10}
+        type="textarea"
+        name="message"
+        value={formValues.message}
+        onChange={(e) => setFormValues({ ...formValues, message: e })}
+        placeholder="How can we assist you?"
+        rows={5}
+      />
+      <Button
+        type="submit"
+        disabled={sending}
+        label={sending ? "Sending..." : "Book Consultation"}
+        className="ml-auto"
+      />
     </form>
   );
 };

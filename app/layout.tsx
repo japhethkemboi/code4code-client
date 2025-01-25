@@ -20,7 +20,7 @@ export default function RootLayout({
       <head>
         <meta name="theme-color" content="black" />
       </head>
-      <body className={`antialiased`}>
+      <body className={`antialiased w-screen h-screen flex flex-col overflow-hidden overflow-y-auto`}>
         <Provider>
           <Header />
           {children}

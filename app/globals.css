@@ -3,12 +3,47 @@
 @tailwind utilities;
 
 :root {
-  --primary-color: #2dd4bf;
+  /* --primary-color: #2dd4bf;
   --secondary-color: #00e0d4;
-  --background-color: #eaeff2;
+  --accent-color: #595e60;
+  --background-color: #fff;
   --text-color: #000;
-  --hero-bg-color: #000;
+  --hero-background-color: #000;
   --hero-text-color: #fff;
+  --header-background-color: #000;
+  --header-text-color: #fff; */
+  /* 
+  --primary-color: #171710;
+  --secondary-color: #707370;
+  --accent-color: #595e60;
+  --background-color: #b0b7c0;
+  --text-color: #171710;
+  --hero-background-color: #b0b7c0;
+  --hero-text-color: #171710;
+  --header-background-color: #171710;
+  --header-text-color: #b0b7c0;
+  --header-hover-color: #171710;
+  --footer-background-color: #171710;
+  --footer-text-color: #b0b7c0;
+  --footer-hover-color: #171710;
+  --simmer-color: #e0e0e0; */
+
+  --primary-color: #0000ff;
+  --secondary-color: #000c66;
+  --background-color: #7ec8e3;
+  --text-color: #050a30;
+  --hero-background-color: #7ec8e3;
+  --hero-text-color: #050a30;
+  --services-tile-background-color: #050a30;
+  --services-tile-text-color: #7ec8e3;
+  --header-background-color: #7ec8e3;
+  --header-text-color: #050a30;
+  --header-hover-color: #000c66;
+  --footer-background-color: #7ec8e3;
+  --footer-text-color: #050a30;
+  --footer-hover-color: #000c66;
+  --simmer-color: #e0e0e0;
+  --hover-color: #000c66;
 }
 
 /* @media (prefers-color-scheme: dark) {

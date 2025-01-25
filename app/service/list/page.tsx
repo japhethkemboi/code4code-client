@@ -1,37 +1,40 @@
 "use client";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "c4cui";
 import DOMPurify from "dompurify";
 import { useService } from "@/app/ServiceContext";
+import { ServiceSkeleton } from "./skeleton";
 
 export default function Services() {
   const { services, fetchServices } = useService();
+  const [servicesLen, setServicesLen] = useState(localStorage.getItem("services_length") || 5);
 
   useEffect(() => {
     fetchServices();
+    services && localStorage.setItem("services_length", services.length.toString());
   }, []);
 
   return (
-    <div className="flex flex-col gap-8 pt-36 bg-black">
-      <div className="flex flex-col sm:items-center sm:text-center gap-4 p-4 items-start">
+    <div className="flex flex-col h-full justify-center items-center w-full gap-8 bg-[var(--background-color)] text-[var(--text-color)]">
+      <div className="flex flex-col max-w-7xl gap-4 pt-36 p-4 w-full bg-[var(--header-background-color)] text-[var(--header-text-color)]">
         <h1 className="text-6xl font-extralight">Our Services</h1>
-        <p className="font-extralight opacity-80 text-lg max-w-3xl mx-auto">
+        <p className="font-extralight opacity-80">
           At CODE4CODE, we offer tailor-made software solutions designed to empower your business. Our expert team
           crafts custom experiences that help your company thrive. Explore our services below and let&apos;s create
           something extraordinary together.
         </p>
       </div>
-
-      <div className="bg-white text-black flex flex-col gap-8">
+      <div className="flex flex-col gap-12 w-full max-w-7xl h-full p-4">
         {!services ? (
-          <p>Loading...</p>
+          <>
+            {Array.from({ length: parseInt(servicesLen.toString() || "5") }).map((_, index) => (
+              <ServiceSkeleton key={index} />
+            ))}
+          </>
         ) : (
           services.map((service, index) => (
-            <div
-              key={index}
-              className={`flex flex-col sm:items-center items-start gap-4 p-4 border-b ${1 % 2 === 0 && "bg-gray-100"}`}
-            >
+            <div key={index} className={`flex flex-col gap-4 border-b border-[var(--secondary-color)] pb-8`}>
               <h2 className="text-lg sm:text-xl font-semibold">{service.name}</h2>
               <div
                 className="md:text-lg"

@@ -12,9 +12,14 @@ export default function Services() {
 
   useEffect(() => {
     fetchServices();
-    services && localStorage.setItem("services_length", services.length.toString());
-    setServicesLen(localStorage.getItem("services_length") || 5);
-  }, []);
+
+    if (services) {
+      localStorage.setItem("services_length", services.length.toString());
+      setServicesLen(services.length);
+    } else {
+      setServicesLen(localStorage.getItem("services_length") || 5);
+    }
+  }, [services, fetchServices]);
 
   return (
     <div className="flex flex-col h-full justify-center items-center w-full gap-8 bg-[var(--background-color)] text-[var(--text-color)]">

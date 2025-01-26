@@ -1,7 +1,5 @@
 "use client";
-import { Button } from "c4cui";
 import { useEffect } from "react";
-import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import Link from "next/link";
 import DOMPurify from "dompurify";
 import { useBlog } from "../BlogProvider";

@@ -1,7 +1,4 @@
 "use client";
-import { Button } from "c4cui";
-import Link from "next/link";
-import DOMPurify from "dompurify";
 
 export const Industries = () => {
   return (

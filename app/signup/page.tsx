@@ -1,6 +1,5 @@
 "use client";
-import { useAuth } from "../AuthProvider";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Cropper, InputComponent, Modal, toast, ToastContainer, useModal } from "c4cui";
 import { PiPen, PiPlus, PiUser } from "react-icons/pi";
 import { useRouter } from "next/navigation";
@@ -8,12 +7,16 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function Signup() {
-  const { signup, login } = useAuth();
   const [newUser, setNewUser] = useState({ first_name: "", last_name: "", username: "", password: "", avatar: "" });
   const [loading, setLoading] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const { openModal, closeModal, isOpen, modalContent } = useModal();
   const router = useRouter();
+
+  useEffect(() => setIsClient(true));
+
+  if (!isClient) return null;
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -42,20 +45,37 @@ export default function Signup() {
     e.preventDefault();
     setLoading(true);
 
-    const res = await signup(newUser);
-    if (res.profile) {
+    const signupRes = await fetch("/api/signup/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    });
+
+    if (signupRes.ok) {
       toast.success("Signup successful. Logging you in...");
-      const loginres = await login({ username: newUser.username, password: newUser.password });
-      if (loginres.ok) {
-        toast.success("Logged in successfully. Welcome.");
+
+      const loginRes = await fetch("/api/login/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: newUser.username, password: newUser.password }),
+      });
+
+      if (loginRes.ok) {
+        toast.success("Logged in successfully! Welcome back.");
+        router.push("/");
       } else {
-        toast.success("Failed to log you in, Please log in.");
-        router.push("/login");
+        const errorData = await loginRes.json();
+        toast.error(errorData.error || "Failed to log in. Please try again.");
       }
-      router.push("/");
     } else {
-      toast.error(res.error || "Error while creating your account.");
+      const errorData = await signupRes.json();
+      toast.error(errorData.error || "Error while creating your account.");
     }
+
     setLoading(false);
   };
 

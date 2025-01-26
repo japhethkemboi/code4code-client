@@ -15,8 +15,8 @@ export const Header = () => {
   const { services } = useService();
 
   return (
-    <header className="fixed z-30 w-full flex justify-center items-center p-4 bg-[var(--header-background-color)] text-[var(--header-text-color)] backdrop-blur">
-      <div className="flex justify-between items-center max-w-7xl w-full">
+    <header className="fixed z-30 w-full flex justify-center items-center bg-[var(--header-background-color)] text-[var(--header-text-color)] backdrop-blur">
+      <div className="flex justify-between items-center max-w-7xl w-full p-4">
         <Link
           href="/"
           className="text-xl md:text-2xl uppercase tracking-wider text-gradient cursor-pointer hover:scale-105 hover:text-[var(--header-hover-color)]"

@@ -2,7 +2,6 @@
 import React, { createContext, ReactNode, useContext, useState } from "react";
 import { toast } from "c4cui";
 import { Service } from "./interface";
-import { useAuth } from "./AuthProvider";
 import { fetchConfig } from "./fetchConfig";
 
 type ServiceContextType = {
@@ -16,7 +15,7 @@ type ServiceContextType = {
     previous?: string;
     error?: string;
   }>;
-  createService: (service: { name: string; poster: string; description: string }) => Promise<{
+  createService: (service: { name: string; poster?: string; description: string }) => Promise<{
     service?: Service;
     error?: string;
   }>;
@@ -26,7 +25,6 @@ export const ServiceContext = createContext<ServiceContextType | undefined>(unde
 
 export const ServiceProvider = ({ children }: { children: ReactNode }) => {
   const [services, setServices] = useState<Service[] | null>(null);
-  const { authFetch } = useAuth();
 
   const fetchServices = async () => {
     const res = await getServices({});
@@ -40,13 +38,13 @@ export const ServiceProvider = ({ children }: { children: ReactNode }) => {
 
   const createService = async (service: {
     name: string;
-    poster: string;
+    poster?: string;
     description: string;
   }): Promise<{
     service?: Service;
     error?: string;
   }> => {
-    const res = await authFetch("/service/create/", {
+    const res = await fetch("/api/service/create/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,10 +52,12 @@ export const ServiceProvider = ({ children }: { children: ReactNode }) => {
       body: JSON.stringify(service),
     });
 
-    if (res.data) {
-      return { service: res.data };
+    const data = await res.json();
+
+    if (res.status === 201) {
+      return { service: data };
     } else {
-      return { error: res.error || "Something went wrong." };
+      return { error: data.error || "Something went wrong." };
     }
   };
 

@@ -2,7 +2,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Button, Cropper, InputComponent, Modal, RichTextEditor, toast, ToastContainer, useModal } from "c4cui";
 import "react-quill-new/dist/quill.snow.css";
-import { PiImage, PiPen, PiPlus } from "react-icons/pi";
+import { PiPen, PiPlus } from "react-icons/pi";
 import { useService } from "@/app/ServiceContext";
 
 export default function CreateService() {
@@ -51,7 +51,7 @@ export default function CreateService() {
     } else {
       const res = await createService({
         name,
-        poster: poster || "",
+        poster: poster || undefined,
         description,
       });
 

@@ -1,7 +1,7 @@
 "use client";
 import { useAuth } from "../AuthProvider";
 import { useRef, useState } from "react";
-import { Button, Cropper, InputComponent, Modal, toast, useModal } from "c4cui";
+import { Button, Cropper, InputComponent, Modal, toast, ToastContainer, useModal } from "c4cui";
 import { PiPen, PiPlus, PiUser } from "react-icons/pi";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -133,6 +133,7 @@ export default function Signup() {
       <Link href="/login" className="text-blue-500 hover:underline">
         Already have an account? Login.
       </Link>
+      <ToastContainer />
       <Modal isOpen={isOpen}>{modalContent}</Modal>
     </div>
   );

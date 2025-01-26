@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Button, InputComponent, toast } from "c4cui";
+import { Button, InputComponent, toast, ToastContainer } from "c4cui";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../AuthProvider";
@@ -48,6 +48,7 @@ export default function Login() {
       <Link href="/signup" className="text-blue-500 hover:underline">
         Don&apos;t have an account? Signup.
       </Link>
+      <ToastContainer />
     </div>
   );
 }

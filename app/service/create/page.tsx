@@ -72,11 +72,11 @@ export default function CreateService() {
   }
 
   return (
-    <div className="flex flex-col w-full gap-8 bg-[var(--background-color)] text-[var(--text-color)]">
-      <div className="flex flex-col gap-4 pt-36 p-4 w-full bg-[var(--header-background-color)] text-[var(--header-text-color)]">
+    <div className="flex flex-col w-full gap-8 justify-center items-center bg-[var(--background-color)] text-[var(--text-color)]">
+      <div className="flex flex-col gap-4 pt-36 p-4 w-full max-w-7xl bg-[var(--header-background-color)] text-[var(--header-text-color)]">
         <h2 className="text-xl">Add a service</h2>
       </div>
-      <div className="flex flex-col gap-4 p-4">
+      <div className="flex flex-col gap-4 p-4 w-full max-w-7xl">
         <InputComponent type="text" placeholder="Name" maxLength={250} value={name} onChange={setName} />
         <RichTextEditor value={description} onChange={setDescription} />
         <div onClick={() => fileInputRef.current?.click()} className="flex w-auto mr-auto gap-4 shrink-0">

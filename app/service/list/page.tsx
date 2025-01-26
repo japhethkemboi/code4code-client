@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Button } from "c4cui";
 import DOMPurify from "dompurify";
 import { useService } from "@/app/ServiceContext";
@@ -8,17 +8,9 @@ import { ServiceSkeleton } from "./skeleton";
 
 export default function Services() {
   const { services, fetchServices } = useService();
-  const [servicesLen, setServicesLen] = useState(localStorage.getItem("services_length") || 5);
 
   useEffect(() => {
     fetchServices();
-
-    if (services) {
-      localStorage.setItem("services_length", services.length.toString());
-      setServicesLen(services.length);
-    } else {
-      setServicesLen(localStorage.getItem("services_length") || 5);
-    }
   }, [services, fetchServices]);
 
   return (
@@ -34,7 +26,7 @@ export default function Services() {
       <div className="flex flex-col gap-12 w-full max-w-7xl h-full p-4">
         {!services ? (
           <>
-            {Array.from({ length: parseInt(servicesLen.toString() || "5") }).map((_, index) => (
+            {Array.from({ length: parseInt("5") }).map((_, index) => (
               <ServiceSkeleton key={index} />
             ))}
           </>

@@ -66,7 +66,7 @@ export default function Signup() {
         <div onClick={() => fileInputRef.current?.click()} className="flex w-auto mr-auto gap-4 shrink-0">
           <div className="flex size-24 rounded-full overflow-hidden text-center bg-[var(--primary-color)] text-[var(--text-color)] relative">
             {newUser.avatar ? (
-              <Image src={newUser.avatar} alt="Preview" width={18} height={18} />
+              <Image src={newUser.avatar} alt="Preview" width={96} height={96} className="rounded-full" />
             ) : (
               <PiUser size={94} className="cursor-pointer" />
             )}

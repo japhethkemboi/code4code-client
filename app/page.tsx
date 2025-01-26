@@ -16,8 +16,8 @@ export default function Home() {
         </h1>
         <p className="sm:text-lg md:text-xl font-light tracking-wide opacity-60 max-w-3xl leading-relaxed">
           At CODE4CODE, we use technology to make your businesses thrive. We don’t just build software; we build the
-          tools that help you win. Whether you're looking to scale, innovate, or lead—our code brings your vision to
-          life and drives success.
+          tools that help you win. Whether you&apos;re looking to scale, innovate, or lead—our code brings your vision
+          to life and drives success.
         </p>
         <div className="flex gap-4">
           <Link href="/service/list">

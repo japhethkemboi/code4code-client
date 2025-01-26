@@ -13,6 +13,7 @@ export default function Services() {
   useEffect(() => {
     fetchServices();
     services && localStorage.setItem("services_length", services.length.toString());
+    setServicesLen(localStorage.getItem("services_length") || 5);
   }, []);
 
   return (

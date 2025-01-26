@@ -1,6 +1,5 @@
 import { Button } from "c4cui";
 import Link from "next/link";
-import { CgArrowTopRight } from "react-icons/cg";
 
 export const Workflow = () => {
   return (

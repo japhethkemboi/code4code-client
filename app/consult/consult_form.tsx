@@ -1,5 +1,5 @@
 "use client";
-import { Button, InputComponent, toast } from "c4cui";
+import { Button, InputComponent, toast, ToastContainer } from "c4cui";
 import { useState } from "react";
 
 export const ConsultForm = () => {
@@ -93,6 +93,7 @@ export const ConsultForm = () => {
         label={sending ? "Sending..." : "Book Consultation"}
         className="ml-auto"
       />
+      <ToastContainer />
     </form>
   );
 };

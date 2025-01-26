@@ -72,7 +72,7 @@ export default function CreateService() {
   }
 
   return (
-    <div className="flex flex-col h-full w-full gap-8 bg-[var(--background-color)] text-[var(--text-color)]">
+    <div className="flex flex-col w-full gap-8 bg-[var(--background-color)] text-[var(--text-color)]">
       <div className="flex flex-col gap-4 pt-36 p-4 w-full bg-[var(--header-background-color)] text-[var(--header-text-color)]">
         <h2 className="text-xl">Add a service</h2>
       </div>
@@ -80,13 +80,7 @@ export default function CreateService() {
         <InputComponent type="text" placeholder="Name" maxLength={250} value={name} onChange={setName} />
         <RichTextEditor value={description} onChange={setDescription} />
         <div onClick={() => fileInputRef.current?.click()} className="flex w-auto mr-auto gap-4 shrink-0">
-          <div className="flex size-32 rounded-xl overflow-hidden text-center text-black/40">
-            {poster ? (
-              <img src={poster} alt="Preview" className="w-full h-full" />
-            ) : (
-              <PiImage size={128} className="cursor-pointer" />
-            )}
-          </div>
+          {poster && <img src={poster} alt="Preview" width={130} height={130} />}
           <div className="flex flex-col w-auto gap-4 items-center justify-center p-4">
             <span>{poster ? "Change" : "Select"} poster</span>
             {poster ? (

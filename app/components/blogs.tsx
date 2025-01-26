@@ -21,7 +21,7 @@ export const Blogs = () => {
         {blogs ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 w-full gap-8">
             {blogs.slice(0, 4).map((blog) => (
-              <div key={blog.slug} className="flex sm:flex-col gap-4">
+              <div key={blog.slug} className="flex sm:flex-col gap-4 shrink-0">
                 {blog.poster && (
                   <Image
                     alt={blog.slug}

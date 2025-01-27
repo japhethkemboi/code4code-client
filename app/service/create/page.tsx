@@ -80,8 +80,8 @@ export default function CreateService() {
         <InputComponent type="text" placeholder="Name" maxLength={250} value={name} onChange={setName} />
         <RichTextEditor value={description} onChange={setDescription} />
         <div onClick={() => fileInputRef.current?.click()} className="flex w-auto mr-auto gap-4 shrink-0">
-          {poster && <img src={poster} alt="Preview" width={130} height={130} />}
-          <div className="flex flex-col w-auto gap-4 items-center justify-center p-4">
+          {poster && <img src={poster} alt="Preview" width={130} height={130} className="rounded-xl" />}
+          <div className="flex flex-col w-auto gap-4">
             <span>{poster ? "Change" : "Select"} poster</span>
             {poster ? (
               <Button

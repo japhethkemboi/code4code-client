@@ -4,6 +4,7 @@ import { Button } from "c4cui";
 import { BsArrowLeft } from "react-icons/bs";
 import DOMPurify from "dompurify";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export const ServiceContent = ({ service }: { service: Service }) => {
   const router = useRouter();
@@ -24,6 +25,15 @@ export const ServiceContent = ({ service }: { service: Service }) => {
         <h1 className="text-xl md:text-2xl">{service.name}</h1>
       </div>
       <div className="flex flex-col max-w-7xl gap-8 p-4 w-full">
+        {service.poster && (
+          <Image
+            alt={service.name}
+            src={`${process.env.NEXT_PUBLIC_SERVER_URL}${service.poster}`}
+            width={200}
+            height={200}
+            className="rounded-xl"
+          />
+        )}
         <div className="md:text-lg" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(service.description) }} />
         <div className="flex flex-col gap-4 md:flex-row">
           <Button label="Get a Free Quote" className="w-full md:w-auto whitespace-nowrap" />

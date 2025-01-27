@@ -2,8 +2,8 @@
 
 export const Industries = () => {
   return (
-    <div className="flex flex-col w-full py-20 gap-8 min-h-screen items-center justify-center p-4 bg-[var(--services-tile-background-color)] text-[var(--services-tile-text-color)]">
-      <div className="flex flex-col w-full gap-4 max-w-7xl">
+    <div className="flex flex-col w-full py-20 gap-8 min-h-screen items-center justify-center bg-[var(--services-tile-background-color)] text-[var(--services-tile-text-color)]">
+      <div className="flex flex-col w-full gap-4 max-w-7xl p-4">
         <h2 className="text-2xl md:text-4xl tracking-tight text-darkGray leading-tight">Industries We Serve</h2>
         <p className="opacity-60">
           At CODE4CODE, we don’t just adapt to industries—we redefine them through tailored software solutions. With a

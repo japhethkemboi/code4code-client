@@ -3,8 +3,8 @@ import { GoArrowUpRight } from "react-icons/go";
 
 export const Footer = () => {
   return (
-    <footer className="flex flex-col justify-center items-center mt-auto w-full p-4 bg-[var(--footer-background-color)] text-[var(--footer-text-color)]">
-      <div className="w-full flex flex-col md:flex-row md:justify-between max-w-7xl gap-4 items-center justify-between">
+    <footer className="flex flex-col justify-center items-center mt-auto w-full bg-[var(--footer-background-color)] text-[var(--footer-text-color)]">
+      <div className="w-full flex flex-col md:flex-row md:justify-between max-w-7xl gap-4 p-4 items-center justify-between">
         <div className="flex gap-4 items-center">
           <Link
             href="/service/list"

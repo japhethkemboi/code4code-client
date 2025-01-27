@@ -29,7 +29,12 @@ export const ServiceContent = ({ service }: { service: Service }) => {
             invert={true}
             onClick={() => router.back()}
           />
-          <Button label="View all services" outline={true} className="w-full border-none" />
+          <Button
+            label="View all services"
+            onClick={() => router.push("/service/list")}
+            outline={true}
+            className="w-full border-none"
+          />
         </div>
         <h1 className="text-xl md:text-2xl">{service.name}</h1>
       </div>

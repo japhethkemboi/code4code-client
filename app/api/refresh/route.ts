@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { fetchConfig } from "@/app/fetchConfig";
 import { cookies } from "next/headers";
 
-export async function POST(request: NextRequest) {
+export async function POST(_: NextRequest) {
   const cookieStore = await cookies();
   const refreshToken = cookieStore.get("refresh");
 

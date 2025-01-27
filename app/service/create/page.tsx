@@ -47,7 +47,7 @@ export default function CreateService() {
     setLoading(true);
     if (!name) {
       toast.error("Please enter service name.");
-    } else if (!description && description.length < 200) {
+    } else if (!description && description.length < 100) {
       toast.error("Please enter description. Make sure its long enough.");
     } else if (!story && story.length < 500) {
       toast.error("Please enter story. Make sure its long enough.");

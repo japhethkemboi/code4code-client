@@ -34,6 +34,7 @@ export const ServiceContent = ({ service }: { service: Service }) => {
         <h1 className="text-xl md:text-2xl">{service.name}</h1>
       </div>
       <div className="flex flex-col max-w-7xl gap-8 p-4 w-full">
+        <p>{service.description}</p>
         {service.poster && (
           <Image
             alt={service.name}
@@ -43,7 +44,7 @@ export const ServiceContent = ({ service }: { service: Service }) => {
             className="rounded-xl"
           />
         )}
-        <div className="md:text-lg" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(service.description) }} />
+        <div className="md:text-lg" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(service.story) }} />
         <div className="flex flex-col gap-4 md:flex-row">
           <Button
             label="Get a Free Quote"

@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextRequest, NextResponse } from "next/server";
 import { fetchConfig } from "@/app/fetchConfig";
 import { cookies } from "next/headers";
 
-export async function POST(_: NextRequest) {
+export async function POST(request: NextRequest) {
   const cookieStore = await cookies();
   const refreshToken = cookieStore.get("refresh");
 
@@ -58,3 +59,4 @@ export async function POST(_: NextRequest) {
     return NextResponse.json({ error: "Failed to refresh token." }, { status: 401 });
   }
 }
+/* eslint-disable @typescript-eslint/no-unused-vars */

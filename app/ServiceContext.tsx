@@ -15,7 +15,7 @@ type ServiceContextType = {
     previous?: string;
     error?: string;
   }>;
-  createService: (service: { name: string; poster?: string; description: string }) => Promise<{
+  createService: (service: { name: string; poster?: string; description: string; story: string }) => Promise<{
     service?: Service;
     error?: string;
   }>;
@@ -40,6 +40,7 @@ export const ServiceProvider = ({ children }: { children: ReactNode }) => {
     name: string;
     poster?: string;
     description: string;
+    story: string;
   }): Promise<{
     service?: Service;
     error?: string;

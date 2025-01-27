@@ -41,10 +41,7 @@ export default function Services() {
           services.map((service, index) => (
             <div key={index} className={`flex flex-col gap-4 border-b border-[var(--secondary-color)] pb-8`}>
               <h2 className="text-lg sm:text-xl font-semibold">{service.name}</h2>
-              <div
-                className="md:text-lg"
-                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(service.description) }}
-              />
+              <p className="md:text-lg">{service.description}</p>
               <div className="flex gap-4">
                 <Link href={`/service/${service.slug}`}>
                   <Button label="Learn more" outline={true} className="border-none" />

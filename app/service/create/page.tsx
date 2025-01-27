@@ -8,6 +8,7 @@ import { useService } from "@/app/ServiceContext";
 export default function CreateService() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [story, setStory] = useState("");
   const [poster, setPoster] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [isClient, setIsClient] = useState(false);
@@ -46,18 +47,22 @@ export default function CreateService() {
     setLoading(true);
     if (!name) {
       toast.error("Please enter service name.");
-    } else if (!description) {
-      toast.error("Please enter description.");
+    } else if (!description && description.length < 200) {
+      toast.error("Please enter description. Make sure its long enough.");
+    } else if (!story && story.length < 500) {
+      toast.error("Please enter story. Make sure its long enough.");
     } else {
       const res = await createService({
         name,
         poster: poster || undefined,
         description,
+        story,
       });
 
       if (res.service) {
         toast.success("Service added.");
         setPoster(null);
+        setStory("");
         setDescription("");
         setName("");
       } else {
@@ -78,7 +83,14 @@ export default function CreateService() {
       </div>
       <div className="flex flex-col gap-4 p-4 w-full max-w-7xl">
         <InputComponent type="text" placeholder="Name" maxLength={250} value={name} onChange={setName} />
-        <RichTextEditor value={description} onChange={setDescription} />
+        <InputComponent
+          type="textarea"
+          placeholder="Description"
+          rows={4}
+          value={description}
+          onChange={setDescription}
+        />
+        <RichTextEditor value={story} onChange={setStory} />
         <div onClick={() => fileInputRef.current?.click()} className="flex w-auto mr-auto gap-4 shrink-0">
           {poster && <img src={poster} alt="Preview" width={130} height={130} className="rounded-xl" />}
           <div className="flex flex-col w-auto gap-4">

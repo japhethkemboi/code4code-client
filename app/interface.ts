@@ -11,6 +11,7 @@ export interface Service {
   slug: string;
   name: string;
   description: string;
+  story: string;
   poster: string;
   tags?: string;
   orders?: number;

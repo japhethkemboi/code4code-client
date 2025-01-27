@@ -5,11 +5,20 @@ import { BsArrowLeft } from "react-icons/bs";
 import DOMPurify from "dompurify";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export const ServiceContent = ({ service }: { service: Service }) => {
+  const [isClient, setIsClient] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null;
+
   return (
-    <div className="flex flex-col items-center w-full">
+    <>
       <div className="flex flex-col max-w-7xl gap-8 pt-24 p-4 w-full bg-[var(--header-background-color)] text-[var(--header-text-color)]">
         <div className="flex gap-4 mr-auto">
           <Button
@@ -36,14 +45,19 @@ export const ServiceContent = ({ service }: { service: Service }) => {
         )}
         <div className="md:text-lg" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(service.description) }} />
         <div className="flex flex-col gap-4 md:flex-row">
-          <Button label="Get a Free Quote" className="w-full md:w-auto whitespace-nowrap" />
+          <Button
+            label="Get a Free Quote"
+            onClick={() => router.push(`/consult?${service.slug}`)}
+            className="w-full md:w-auto whitespace-nowrap"
+          />
           <Button
             label="Consult how this can help your business"
             outline={true}
+            onClick={() => router.push(`/consult?${service.slug}`)}
             className="w-full md:w-auto border-none"
           />
         </div>
       </div>
-    </div>
+    </>
   );
 };

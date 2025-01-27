@@ -110,8 +110,8 @@ export default function CreateService() {
         </div>
         <Button label="Add Service" onClick={handleSubmit} disabled={loading} className="ml-auto" />
       </div>
-      <Modal isOpen={isOpen}>{modalContent}</Modal>
       <ToastContainer />
+      <Modal isOpen={isOpen}>{modalContent}</Modal>
     </div>
   );
 }

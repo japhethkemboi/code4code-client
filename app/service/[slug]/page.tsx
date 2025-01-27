@@ -20,7 +20,11 @@ export default async function ServiceView({ params }: { params: Promise<{ slug: 
   if (res.data) {
     const service: Service = res.data as Service;
 
-    return <ServiceContent service={service} />;
+    return (
+      <div className="flex flex-col items-center w-full">
+        <ServiceContent service={service} />
+      </div>
+    );
   } else {
     return <p>OOps! Something went wrong.</p>;
   }

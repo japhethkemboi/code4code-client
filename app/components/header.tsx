@@ -71,11 +71,10 @@ export const Header = () => {
                   With Link focus on precision and excellence, we ensure that each project pushes the boundaries of
                   what’s possible, making us the ideal partner to bring your vision to life.
                 </p>
-
                 <Link
                   href="/service/list"
                   onClick={() => setIsServicesHovered(false)}
-                  className="hover:text-[var(--header-hover-color)]"
+                  className="hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
                 >
                   All Services
                 </Link>
@@ -84,7 +83,8 @@ export const Header = () => {
                 {services?.slice(0, 5).map((service, index) => (
                   <Link
                     key={index}
-                    href=""
+                    href={`/service/${service.slug}`}
+                    onClick={() => setIsServicesHovered(false)}
                     className="hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
                   >
                     {service.name}

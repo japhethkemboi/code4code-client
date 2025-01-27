@@ -29,8 +29,8 @@ export default function AboutUs() {
   }
 
   return (
-    <div className="flex flex-col h-full gap-8 bg-[var(--background-color)] text-[var(--text-color)]">
-      <div className="flex flex-col gap-4 pt-36 p-4 w-full bg-[var(--header-background-color)] text-[var(--header-text-color)]">
+    <div className="flex flex-col w-full gap-8 items-center bg-[var(--background-color)] text-[var(--text-color)]">
+      <div className="flex flex-col gap-4 pt-36 p-4 w-full max-w-7xl bg-[var(--header-background-color)] text-[var(--header-text-color)]">
         <h1 className="text-4xl">About Us</h1>
       </div>
       <div className="flex flex-col gap-4 p-4">

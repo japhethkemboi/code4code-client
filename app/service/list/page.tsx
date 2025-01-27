@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "c4cui";
-import DOMPurify from "dompurify";
 import { useService } from "@/app/ServiceContext";
 import { ServiceSkeleton } from "./skeleton";
 

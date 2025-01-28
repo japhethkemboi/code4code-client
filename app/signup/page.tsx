@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { Button, Cropper, InputComponent, Modal, toast, ToastContainer, useModal } from "c4cui";
@@ -158,3 +159,4 @@ export default function Signup() {
     </div>
   );
 }
+/* eslint-disable @typescript-eslint/no-explicit-any */

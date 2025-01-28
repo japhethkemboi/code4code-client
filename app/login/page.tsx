@@ -52,7 +52,7 @@ export default function Login() {
         />
         <Button type="submit" label="Login" disabled={loading} className="p-4" />
       </form>
-      <Link href="/signup" className="text-blue-500 hover:underline">
+      <Link href="/signup" className="text-[var(--primary-color)] opacity-60 hover:underline">
         Don&apos;t have an account? Signup.
       </Link>
       <ToastContainer />

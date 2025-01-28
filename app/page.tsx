@@ -12,12 +12,12 @@ export default function Home() {
     <div className="flex flex-col items-center bg-[var(--background-color)] text-[var(--text-color)]">
       <div className="min-h-screen w-full flex flex-col gap-8 max-w-7xl justify-center bg-[var(--hero-background-color)] text-[var(--hero-text-color)] p-4">
         <h1 className="text-4xl sm:text-6xl md:text-8xl font-extrabold">
-          We Speak <b className="text-[var(--primary-color)]">CODE</b>
+          Your business, but smoother.
+          {/* <b className="text-[var(--primary-color)]">Software Engineering Company.</b> */}
         </h1>
         <p className="sm:text-lg md:text-xl font-light tracking-wide opacity-60 max-w-3xl leading-relaxed">
-          At CODE4CODE, we use technology to make your businesses thrive. We don’t just build software; we build the
-          tools that help you win. Whether you&apos;re looking to scale, innovate, or lead—our code brings your vision
-          to life and drives success.
+          At CODE4CODE, we craft software that empowers businesses to grow and succeed. Trust our expertise to
+          streamline operations, unlock potential, and deliver results.
         </p>
         <div className="flex gap-4">
           <Link href="/service/list">

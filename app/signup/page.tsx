@@ -7,7 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function Signup() {
-  const [newUser, setNewUser] = useState({ first_name: "", last_name: "", username: "", password: "", avatar: "" });
+  const [newUser, setNewUser] = useState<any>();
   const [loading, setLoading] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -85,15 +85,15 @@ export default function Signup() {
         <h1 className="text-4xl">Sign up</h1>
         <div onClick={() => fileInputRef.current?.click()} className="flex w-auto mr-auto gap-4 shrink-0">
           <div className="flex size-24 rounded-full overflow-hidden text-center bg-[var(--primary-color)] text-[var(--text-color)] relative">
-            {newUser.avatar ? (
+            {newUser?.avatar ? (
               <Image src={newUser.avatar} alt="Preview" width={96} height={96} className="rounded-full" />
             ) : (
               <PiUser size={94} className="cursor-pointer" />
             )}
           </div>
           <div className="flex flex-col w-auto gap-4 items-center justify-center p-4">
-            <span>{newUser.avatar ? "Change" : "Select"} profile picture</span>
-            {newUser.avatar ? (
+            <span>{newUser?.avatar ? "Change" : "Select"} profile picture</span>
+            {newUser?.avatar ? (
               <Button
                 onClick={() => fileInputRef.current?.click()}
                 outline={true}
@@ -121,21 +121,21 @@ export default function Signup() {
         <InputComponent
           name="first_name"
           type="name"
-          value={newUser.first_name}
+          value={newUser?.first_name}
           onChange={(e) => setNewUser({ ...newUser, first_name: e })}
           placeholder="First Name"
         />
         <InputComponent
           name="last_name"
           type="name"
-          value={newUser.last_name}
+          value={newUser?.last_name}
           onChange={(e) => setNewUser({ ...newUser, last_name: e })}
           placeholder="Last Name"
         />
         <InputComponent
           name="username"
           type="email"
-          value={newUser.username}
+          value={newUser?.username}
           onChange={(e) => setNewUser({ ...newUser, username: e })}
           placeholder="Email Address"
         />
@@ -143,14 +143,14 @@ export default function Signup() {
           name="password"
           type="password"
           minLength={8}
-          value={newUser.password}
+          value={newUser?.password}
           onChange={(e) => setNewUser({ ...newUser, password: e })}
           placeholder="Password"
           generatePassword={true}
         />
         <Button type="submit" label="Sign up" className="p-4" disabled={loading} />
       </form>
-      <Link href="/login" className="text-blue-500 hover:underline">
+      <Link href="/login" className="text-[var(--primary-color)] opacity-60 hover:underline">
         Already have an account? Login.
       </Link>
       <ToastContainer />

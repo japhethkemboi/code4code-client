@@ -20,7 +20,7 @@ export async function middleware(request: NextRequest) {
         maxAge: 15 * 60,
         path: "/",
         sameSite: "strict",
-        domain: process.env.AUTH_DOMAIN,
+        domain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
       });
 
       response.cookies.set("refresh", refresh, {
@@ -29,7 +29,7 @@ export async function middleware(request: NextRequest) {
         maxAge: 24 * 60 * 60,
         path: "/",
         sameSite: "none",
-        domain: process.env.AUTH_DOMAIN,
+        domain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
       });
 
       return NextResponse.next();

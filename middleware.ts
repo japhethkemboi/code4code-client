@@ -28,7 +28,7 @@ export async function middleware(request: NextRequest) {
         secure: process.env.NODE_ENV === "production",
         maxAge: 24 * 60 * 60,
         path: "/",
-        sameSite: "none",
+        sameSite: "lax",
         domain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
       });
 

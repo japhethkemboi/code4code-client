@@ -1,17 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useEffect, useRef, useState } from "react";
-import { Button, Cropper, InputComponent, Modal, toast, ToastContainer } from "c4cui";
-import { PiPen, PiPlus, PiUser } from "react-icons/pi";
+import { useEffect, useState } from "react";
+import { Button, InputComponent, toast, ToastContainer } from "c4cui";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Signup() {
   const [newUser, setNewUser] = useState<any>();
   const [loading, setLoading] = useState(false);
   const [isClient, setIsClient] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
   // const { openModal, closeModal, isOpen, modalContent } = useModal();
   const router = useRouter();
 

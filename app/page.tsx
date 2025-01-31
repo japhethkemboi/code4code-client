@@ -1,33 +1,15 @@
 "use client";
-import Link from "next/link";
 import { ServicesTile } from "./components/services";
 import { Workflow } from "./components/workflow";
 import { ConsultForm } from "./consult/consult_form";
-import { Button } from "c4cui";
 import { Industries } from "./components/industries";
 import { Blogs } from "./components/blogs";
+import { Hero } from "./components/hero";
 
-export default function Home() {
+export default async function Home() {
   return (
     <div className="flex flex-col items-center bg-[var(--background-color)] text-[var(--text-color)]">
-      <div className="min-h-screen w-full flex flex-col gap-8 max-w-7xl justify-center bg-[var(--hero-background-color)] text-[var(--hero-text-color)] p-4">
-        <h1 className="text-4xl sm:text-6xl md:text-8xl font-extrabold">
-          Your business, but smoother.
-          {/* <b className="text-[var(--primary-color)]">Software Engineering Company.</b> */}
-        </h1>
-        <p className="sm:text-lg md:text-xl font-light tracking-wide opacity-60 max-w-3xl leading-relaxed">
-          At CODE4CODE, we craft software that empowers businesses to grow and succeed. Trust our expertise to
-          streamline operations, unlock potential, and deliver results.
-        </p>
-        <div className="flex gap-4">
-          <Link href="/service/list">
-            <Button className="w-full sm:w-auto" label="Book Service" outline={true} />
-          </Link>
-          <Link href="/consult">
-            <Button className="w-full sm:w-auto" label="Book consultation" />
-          </Link>
-        </div>
-      </div>
+      <Hero />
       <ServicesTile />
       <Workflow />
       <Industries />
@@ -40,9 +22,6 @@ export default function Home() {
             Your challenges are unique, and we believe your solutions should be too. Let’s work together to create
             something extraordinary.
           </p>
-          <Link href="/consult">
-            <Button label="Get in Touch" />
-          </Link>
         </div>
       </div>
       <div className="flex flex-col min-h-screen w-full justify-center items-center">

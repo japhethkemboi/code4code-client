@@ -1,16 +1,28 @@
 "use client";
-import { Button } from "c4cui";
+import { Button, toast } from "c4cui";
 import { useEffect, useState } from "react";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
-import { useService } from "../ServiceContext";
 import Link from "next/link";
 import DOMPurify from "dompurify";
+import { Service } from "../interface";
+import { getServices } from "../utils";
+import { useRouter } from "next/navigation";
 
 export const ServicesTile = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { services, fetchServices } = useService();
+  const [services, setServices] = useState<Service[] | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
+    const fetchServices = async () => {
+      const res = await getServices({});
+
+      if (res.services) {
+        setServices(res.services);
+      } else {
+        toast.error(res.error || "Couldn't fetch services.");
+      }
+    };
     fetchServices();
   }, []);
 
@@ -55,12 +67,14 @@ export const ServicesTile = () => {
               />
               <div className="flex flex-col gap-4 w-full sm:flex-row z-10">
                 <div className="flex flex-col gap-4 w-full sm:flex-row">
-                  <Link href={`/service/${services[currentIndex]?.slug}`}>
-                    <Button label="Learn More" className="w-full sm:w-auto" outline={true} invert={true} />
-                  </Link>
-                  <Link href={`/consult`}>
-                    <Button className="w-full sm:w-auto" label="Get Service" />
-                  </Link>
+                  <Button
+                    onClick={() => router.push(`/service/${services[currentIndex]?.slug}`)}
+                    label="Learn More"
+                    className="w-full sm:w-auto"
+                    outline={true}
+                    invert={true}
+                  />
+                  <Button className="w-full sm:w-auto" label="Get Service" onClick={() => router.push("/consult")} />
                 </div>
                 <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-4 mt-auto max-w-4xl self-center">
                   <div className="flex gap-2">

@@ -1,18 +1,32 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BiChevronDown, BiMenuAltRight } from "react-icons/bi";
 import { CgClose } from "react-icons/cg";
 import { GoArrowUpRight } from "react-icons/go";
 import Link from "next/link";
-import { Button } from "c4cui";
+import { Button, toast } from "c4cui";
 import { PiPlus } from "react-icons/pi";
-import { useService } from "../ServiceContext";
+import { Service } from "../interface";
+import { getServices } from "../utils";
 
 export const Header = () => {
   const [isServicesHovered, setIsServicesHovered] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServiceMenuOpen, setIsServiceMenuOpen] = useState(true);
-  const { services } = useService();
+  const [services, setServices] = useState<Service[] | null>(null);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      const res = await getServices({ page_size: 6 });
+
+      if (res.services) {
+        setServices(res.services);
+      } else {
+        toast.error(res.error || "Couldn't fetch services.");
+      }
+    };
+    fetchServices();
+  }, []);
 
   return (
     <header className="fixed z-30 w-full flex justify-center items-center bg-[var(--header-background-color)] text-[var(--header-text-color)] backdrop-blur">
@@ -80,16 +94,27 @@ export const Header = () => {
                 </Link>
               </div>
               <div className="flex flex-col p-4 gap-3 whitespace-nowrap items-start">
-                {services?.slice(0, 5).map((service, index) => (
-                  <Link
-                    key={index}
-                    href={`/service/${service.slug}`}
-                    onClick={() => setIsServicesHovered(false)}
-                    className="hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
-                  >
-                    {service.name}
-                  </Link>
-                ))}
+                {services ? (
+                  services.map((service, index) => (
+                    <Link
+                      key={index}
+                      href={`/service/${service.slug}`}
+                      onClick={() => setIsServicesHovered(false)}
+                      className="hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
+                    >
+                      {service.name}
+                    </Link>
+                  ))
+                ) : (
+                  <>
+                    <div className="h-2 p-1 w-24 rounded-full animate-pulse bg-[var(--simmer-color)]"></div>
+                    <div className="h-2 p-1 w-32 rounded-full animate-pulse bg-[var(--simmer-color)]"></div>
+                    <div className="h-2 p-1 w-20 rounded-full animate-pulse bg-[var(--simmer-color)]"></div>
+                    <div className="h-2 p-1 w-28 rounded-full animate-pulse bg-[var(--simmer-color)]"></div>
+                    <div className="h-2 p-1 w-20 rounded-full animate-pulse bg-[var(--simmer-color)]"></div>
+                    <div className="h-2 p-1 w-16 rounded-full animate-pulse bg-[var(--simmer-color)]"></div>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -123,16 +148,27 @@ export const Header = () => {
                 </p>
                 {isServiceMenuOpen && (
                   <div className="flex flex-col gap-4 pl-4 items-start w-full">
-                    {services?.slice(0, 6).map((service, index) => (
-                      <Link
-                        key={index}
-                        href={`/service/${service.slug}`}
-                        onClick={() => setIsMenuOpen(false)}
-                        className="hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300 w-full text-start"
-                      >
-                        {service.name}
-                      </Link>
-                    ))}
+                    {services ? (
+                      services?.slice(0, 6).map((service, index) => (
+                        <Link
+                          key={index}
+                          href={`/service/${service.slug}`}
+                          onClick={() => setIsMenuOpen(false)}
+                          className="hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300 w-full text-start"
+                        >
+                          {service.name}
+                        </Link>
+                      ))
+                    ) : (
+                      <>
+                        <div className="h-2 p-1 w-24 rounded-full animate-pulse bg-[var(--simmer-color)]"></div>
+                        <div className="h-2 p-1 w-32 rounded-full animate-pulse bg-[var(--simmer-color)]"></div>
+                        <div className="h-2 p-1 w-20 rounded-full animate-pulse bg-[var(--simmer-color)]"></div>
+                        <div className="h-2 p-1 w-28 rounded-full animate-pulse bg-[var(--simmer-color)]"></div>
+                        <div className="h-2 p-1 w-20 rounded-full animate-pulse bg-[var(--simmer-color)]"></div>
+                        <div className="h-2 p-1 w-16 rounded-full animate-pulse bg-[var(--simmer-color)]"></div>
+                      </>
+                    )}
                     <Link
                       href="/service/list"
                       onClick={() => setIsMenuOpen(false)}

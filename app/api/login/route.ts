@@ -23,6 +23,7 @@ export async function POST(request: NextRequest) {
       maxAge: 15 * 60,
       path: "/",
       sameSite: "strict",
+      domain: process.env.AUTH_DOMAIN,
     });
 
     response.cookies.set("refresh", refresh, {
@@ -30,7 +31,8 @@ export async function POST(request: NextRequest) {
       secure: process.env.NODE_ENV === "production",
       maxAge: 24 * 60 * 60,
       path: "/",
-      sameSite: "strict",
+      sameSite: "none",
+      domain: process.env.AUTH_DOMAIN,
     });
 
     return response;

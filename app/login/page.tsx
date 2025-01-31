@@ -23,7 +23,7 @@ export default function Login() {
 
     if (res.ok) {
       toast.success("Logged in successfully! Welcome back.");
-      router.push("/");
+      router.replace("/");
     } else {
       const errorData = await res.json();
       toast.error(errorData.error || "Invalid username or password.");

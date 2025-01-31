@@ -67,7 +67,7 @@ export default function Signup() {
 
       if (loginRes.ok) {
         toast.success("Logged in successfully! Welcome back.");
-        router.push("/");
+        router.replace("/");
       } else {
         const errorData = await loginRes.json();
         toast.error(errorData.error || "Failed to log in. Please try again.");

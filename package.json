@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "c4cui": "^1.7.4",
+    "c4cui": "^1.7.8",
     "dompurify": "^3.2.3",
     "js-cookie": "^3.0.5",
     "jsdom": "^26.0.0",

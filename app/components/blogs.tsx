@@ -1,15 +1,25 @@
 "use client";
-import { useEffect } from "react";
-import Link from "next/link";
 import DOMPurify from "dompurify";
-import { useBlog } from "../BlogProvider";
 import Image from "next/image";
 import { GoArrowUpRight } from "react-icons/go";
+import { Blog } from "../interface";
+import { fetchConfig } from "../fetchConfig";
+import { useEffect, useState } from "react";
+import { toast } from "c4cui";
+import Link from "next/link";
 
-export const Blogs = () => {
-  const { blogs, fetchBlogs } = useBlog();
+export function Blogs() {
+  const [blogs, setBlogs] = useState<Blog[] | null>(null);
 
   useEffect(() => {
+    const fetchBlogs = async () => {
+      const res = await fetchConfig(`/blog/list/`);
+      if (res.data) {
+        setBlogs(res.data.results);
+      } else {
+        toast.error(res.error || "Could'nt fetch blogs.");
+      }
+    };
     fetchBlogs();
   }, []);
 
@@ -20,30 +30,34 @@ export const Blogs = () => {
 
         {blogs ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 w-full gap-8">
-            {blogs.slice(0, 4).map((blog) => (
-              <div key={blog.slug} className="flex sm:flex-col gap-4 shrink-0">
-                {blog.poster && (
-                  <Image
-                    alt={blog.slug}
-                    width={500}
-                    height={500}
-                    className="size-36 sm:w-full sm:h-auto max-h-48 rounded-xl"
-                    src={process.env.NEXT_PUBLIC_SERVER_URL + blog.poster}
-                  />
-                )}
-                <div className="flex flex-col gap-4">
-                  <Link href={`/service/${blog.slug}`} className="text-lg font-semibold hover:underline">
-                    {blog.title}
-                  </Link>
-                  <div
-                    className="line-clamp-3 overflow-ellipsis"
-                    dangerouslySetInnerHTML={{
-                      __html: DOMPurify.sanitize(blog.content),
-                    }}
-                  />
+            {blogs.length > 0 ? (
+              blogs.slice(0, 4).map((blog) => (
+                <div key={blog.slug} className="flex sm:flex-col gap-4 shrink-0">
+                  {blog.poster && (
+                    <Image
+                      alt={blog.slug}
+                      width={500}
+                      height={500}
+                      className="size-36 sm:w-full sm:h-auto max-h-48 rounded-xl"
+                      src={process.env.NEXT_PUBLIC_SERVER_URL + blog.poster}
+                    />
+                  )}
+                  <div className="flex flex-col gap-4">
+                    <Link href={`/service/${blog.slug}`} className="text-lg font-semibold hover:underline">
+                      {blog.title}
+                    </Link>
+                    <div
+                      className="line-clamp-3 overflow-ellipsis"
+                      dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(blog.content),
+                      }}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p>No blogs published.</p>
+            )}
           </div>
         ) : (
           <Skeleton />
@@ -58,7 +72,7 @@ export const Blogs = () => {
       </div>
     </div>
   );
-};
+}
 
 export const Skeleton = () => {
   return (

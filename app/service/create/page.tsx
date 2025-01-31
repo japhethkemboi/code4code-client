@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { Button, Cropper, InputComponent, Modal, RichTextEditor, toast, ToastContainer, useModal } from "c4cui";
 import "react-quill-new/dist/quill.snow.css";
 import { PiPen, PiPlus } from "react-icons/pi";
-import { useService } from "@/app/ServiceContext";
+import { useService } from "@/app/utils";
 
 export default function CreateService() {
   const [name, setName] = useState("");

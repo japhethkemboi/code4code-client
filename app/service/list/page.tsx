@@ -2,12 +2,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "c4cui";
-import { useService } from "@/app/ServiceContext";
 import { ServiceSkeleton } from "./skeleton";
 
 export default function Services() {
   const [isClient, setIsClient] = useState(false);
-  const { services, fetchServices } = useService();
 
   useEffect(() => {
     setIsClient(true);

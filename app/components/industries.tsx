@@ -1,5 +1,3 @@
-"use client";
-
 export const Industries = () => {
   return (
     <div className="flex flex-col w-full py-20 gap-8 min-h-screen items-center justify-center bg-[var(--services-tile-background-color)] text-[var(--services-tile-text-color)]">

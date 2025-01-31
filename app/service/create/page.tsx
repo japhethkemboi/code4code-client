@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { Button, Cropper, InputComponent, Modal, RichTextEditor, toast, ToastContainer, useModal } from "c4cui";
 import "react-quill-new/dist/quill.snow.css";
 import { PiPen, PiPlus } from "react-icons/pi";
-import { useService } from "@/app/utils";
+import { createService } from "@/app/utils";
 
 export default function CreateService() {
   const [name, setName] = useState("");
@@ -14,7 +14,6 @@ export default function CreateService() {
   const [isClient, setIsClient] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const { openModal, closeModal, isOpen, modalContent } = useModal();
-  const { createService } = useService();
 
   useEffect(() => {
     setIsClient(true);

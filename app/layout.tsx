@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "./components/header";
 import { Footer } from "./components/footer";
-import { ModalProvider } from "c4cui";
 
 export const metadata: Metadata = {
   title: "CODE4CODE",
@@ -23,11 +22,9 @@ export default function RootLayout({
       <body
         className={`antialiased w-screen h-screen flex flex-col overflow-hidden overflow-y-auto bg-[var(--background-color)] text-[var(--text-color)]`}
       >
-        <ModalProvider>
-          <Header />
-          {children}
-          <Footer />
-        </ModalProvider>
+        <Header />
+        {children}
+        <Footer />
       </body>
     </html>
   );

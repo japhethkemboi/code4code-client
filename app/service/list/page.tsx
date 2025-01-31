@@ -1,10 +1,13 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Button } from "c4cui";
+import { Button, toast, ToastContainer } from "c4cui";
 import { ServiceSkeleton } from "./skeleton";
+import { getServices } from "@/app/utils";
+import { Service } from "@/app/interface";
 
 export default function Services() {
+  const [services, setServices] = useState<Service[] | null>(null);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -12,6 +15,15 @@ export default function Services() {
   }, []);
 
   useEffect(() => {
+    const fetchServices = async () => {
+      const res = await getServices({});
+
+      if (res.services) {
+        setServices(res.services);
+      } else {
+        toast.error(res.error || "Couldn't fetch services.");
+      }
+    };
     fetchServices();
   }, []);
 
@@ -51,6 +63,7 @@ export default function Services() {
           ))
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 }

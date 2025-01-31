@@ -1,16 +1,6 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
-import {
-  Button,
-  Cropper,
-  InputComponent,
-  Modal,
-  ModalProvider,
-  RichTextEditor,
-  toast,
-  ToastContainer,
-  useModal,
-} from "c4cui";
+import React, { useState } from "react";
+import { ModalProvider, toast, ToastContainer } from "c4cui";
 import "react-quill-new/dist/quill.snow.css";
 import { createService } from "@/app/utils";
 import ServiceForm from "./form";

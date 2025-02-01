@@ -44,7 +44,7 @@ export default function ServiceForm({
     }
   };
 
-  if (!isClient) null;
+  if (!isClient) return null;
 
   return (
     <form className="flex flex-col gap-4 p-4 w-full max-w-7xl">

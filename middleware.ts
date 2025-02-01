@@ -15,7 +15,7 @@ export async function middleware(request: NextRequest) {
       const response = NextResponse.json({ ok: true });
 
       response.cookies.set("access", access, {
-        httpOnly: true,
+        httpOnly: false,
         secure: process.env.NODE_ENV === "production",
         maxAge: 15 * 60,
         path: "/",
@@ -24,7 +24,7 @@ export async function middleware(request: NextRequest) {
       });
 
       response.cookies.set("refresh", refresh, {
-        httpOnly: true,
+        httpOnly: false,
         secure: process.env.NODE_ENV === "production",
         maxAge: 24 * 60 * 60,
         path: "/",

@@ -12,27 +12,14 @@ export async function middleware(request: NextRequest) {
     if (res.data) {
       const { access, refresh } = res.data;
 
-      const response = NextResponse.json({ ok: true });
+      document.cookie = `access=${access}; path=/; max-age=${15 * 60}; secure=${
+        process.env.NODE_ENV === "production" ? "true" : "false"
+      }; SameSite=Strict; domain=${process.env.NEXT_PUBLIC_AUTH_DOMAIN}`;
+      document.cookie = `refresh=${refresh}; path=/; max-age=${24 * 60 * 60}; secure=${
+        process.env.NODE_ENV === "production" ? "true" : "false"
+      }; SameSite=Lax; domain=${process.env.NEXT_PUBLIC_AUTH_DOMAIN}`;
 
-      response.cookies.set("access", access, {
-        httpOnly: false,
-        secure: process.env.NODE_ENV === "production",
-        maxAge: 15 * 60,
-        path: "/",
-        sameSite: "strict",
-        domain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
-      });
-
-      response.cookies.set("refresh", refresh, {
-        httpOnly: false,
-        secure: process.env.NODE_ENV === "production",
-        maxAge: 24 * 60 * 60,
-        path: "/",
-        sameSite: "lax",
-        domain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
-      });
-
-      return NextResponse.next();
+      return NextResponse.json({ ok: true });
     }
   }
 

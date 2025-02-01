@@ -1,4 +1,3 @@
-"use client";
 import { ServicesTile } from "./components/services";
 import { Workflow } from "./components/workflow";
 import { ConsultForm } from "./consult/consult_form";
@@ -6,7 +5,7 @@ import { Industries } from "./components/industries";
 import { Blogs } from "./components/blogs";
 import { Hero } from "./components/hero";
 
-export default async function Home() {
+export default function Home() {
   return (
     <div className="flex flex-col items-center bg-[var(--background-color)] text-[var(--text-color)]">
       <Hero />

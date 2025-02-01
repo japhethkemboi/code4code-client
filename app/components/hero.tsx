@@ -7,10 +7,7 @@ export const Hero = () => {
 
   return (
     <div className="min-h-screen w-full flex flex-col gap-8 max-w-7xl justify-center bg-[var(--hero-background-color)] text-[var(--hero-text-color)] p-4">
-      <h1 className="text-4xl sm:text-6xl md:text-8xl font-extrabold">
-        Your business, but smoother.
-        {/* <b className="text-[var(--primary-color)]">Software Engineering Company.</b> */}
-      </h1>
+      <h1 className="text-4xl sm:text-6xl md:text-8xl font-extrabold">Your business, but smoother.</h1>
       <p className="sm:text-lg md:text-xl font-light tracking-wide opacity-60 max-w-3xl leading-relaxed">
         At CODE4CODE, we craft software that empowers businesses to grow and succeed. Trust our expertise to streamline
         operations, unlock potential, and deliver results.

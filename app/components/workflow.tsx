@@ -33,8 +33,9 @@ export const Workflow = () => {
         </div>
         <p className="text-lg opacity-80">And when it’s done, it’s more than just code.</p>
         <Button
+          outline={true}
           onClick={() => router.push("/consult")}
-          className="text-sm md:text-base w-auto"
+          className="mr-auto"
           label="Create a lasting impact with us"
         />
       </div>

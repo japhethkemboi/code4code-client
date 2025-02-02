@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
       domain: process.env.NODE_ENV === "production" ? process.env.AUTH_DOMAIN : undefined,
     });
 
-    response.cookies.set("fake_access", Math.random().toString(36).substring(2), {
+    response.cookies.set("access_token", Math.random().toString(36).substring(2), {
       httpOnly: false,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
       domain: process.env.NODE_ENV === "production" ? process.env.AUTH_DOMAIN : undefined,
     });
 
-    response.cookies.set("fake_refresh", Math.random().toString(36).substring(2), {
+    response.cookies.set("refresh_token", Math.random().toString(36).substring(2), {
       httpOnly: false,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",

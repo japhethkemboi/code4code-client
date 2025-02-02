@@ -1,7 +1,26 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { fetchConfig } from "@/app/fetchConfig";
 
-export async function GET() {
+export async function POST(request: NextRequest) {
+  const origin = request.headers.get("Origin");
+  const allowedOrigin = /^https?:\/\/([a-zA-Z0-9-]+)\.code4code\.dev$/;
+
+  const response = NextResponse.json({ ok: true });
+
+  if (origin && allowedOrigin.test(origin)) {
+    response.headers.set("Access-Control-Allow-Origin", origin);
+  } else {
+    response.headers.set("Access-Control-Allow-Origin", "");
+  }
+
+  response.headers.set("Access-Control-Allow-Credentials", "true");
+  response.headers.set("Access-Control-Allow-Methods", "POST");
+  response.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  if (request.method === "GET") {
+    return response;
+  }
+
   const res = await fetchConfig("/user/token/refresh", { method: "POST" });
 
   if (res.data) {

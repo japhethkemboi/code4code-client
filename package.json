@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "c4cui": "^1.8.4",
+    "cookie": "^1.0.2",
     "dompurify": "^3.2.3",
-    "js-cookie": "^3.0.5",
     "jsdom": "^26.0.0",
     "next": "15.1.4",
     "next-sitemap": "^4.2.3",
@@ -24,7 +24,6 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@types/js-cookie": "^3.0.6",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^20",
     "@types/nodemailer": "^6.4.17",

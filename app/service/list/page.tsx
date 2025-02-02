@@ -1,6 +1,6 @@
 import { ServiceSkeleton } from "./skeleton";
-import { getServices } from "@/app/utils";
 import { ServiceTile } from "./service_tile";
+import { getServices } from "../utils";
 
 export default async function Services() {
   const res = await getServices({});

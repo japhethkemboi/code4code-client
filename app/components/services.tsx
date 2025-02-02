@@ -5,8 +5,8 @@ import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import Link from "next/link";
 import DOMPurify from "dompurify";
 import { Service } from "../interface";
-import { getServices } from "../utils";
 import { useRouter } from "next/navigation";
+import { getServices } from "../service/utils";
 
 export const ServicesTile = () => {
   const [currentIndex, setCurrentIndex] = useState(0);

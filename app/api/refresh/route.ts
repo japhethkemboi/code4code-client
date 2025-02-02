@@ -1,16 +1,8 @@
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { fetchConfig } from "@/app/fetchConfig";
 
-export async function POST(request: NextRequest) {
-  const credentials = await request.json();
-
-  const res = await fetchConfig("/user/token/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  });
+export async function GET() {
+  const res = await fetchConfig("/user/token/refresh", { method: "POST" });
 
   if (res.data) {
     const { access, refresh } = res.data;

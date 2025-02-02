@@ -20,6 +20,8 @@ export const fetchConfig = async (
       options.method = "GET";
     }
 
+    options.credentials = "include";
+
     options.headers = {
       ...options.headers,
       "Content-Type": "application/json",

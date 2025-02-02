@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import { ModalProvider, toast, ToastContainer } from "c4cui";
 import "react-quill-new/dist/quill.snow.css";
-import { createService } from "@/app/utils";
 import ServiceForm from "./form";
+import { createService } from "../utils";
 
 export default function CreateService() {
   const [data, setData] = useState<{ name: string; description: string; story: string; poster?: string }>({

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Button, toast } from "c4cui";
 import { PiPlus } from "react-icons/pi";
 import { Service } from "../interface";
-import { getServices } from "../utils";
+import { getServices } from "../service/utils";
 
 export const Header = () => {
   const [isServicesHovered, setIsServicesHovered] = useState(false);

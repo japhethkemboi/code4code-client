@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 
 export async function POST(request: NextRequest) {
   const cookieStore = await cookies();
-  const access = cookieStore.get("access");
+  const access = cookieStore.get("access_token");
 
   if (access) {
     const res = await fetchConfig("/user/logout/", {
@@ -20,7 +20,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: res.error || "Logout failed. Please try again." }, { status: 400 });
     } else {
       cookieStore.delete("access");
+      cookieStore.delete("access_token");
       cookieStore.delete("refresh");
+      cookieStore.delete("refresh_token");
 
       return NextResponse.json({ message: "Logged out successfully" }, { status: 200 });
     }

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Button, InputComponent, toast, ToastContainer } from "c4cui";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Cookie } from "../utils";
 
 export default function Login() {
   const [credentials, setCredentials] = useState({ username: "", password: "" });

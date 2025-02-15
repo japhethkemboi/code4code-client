@@ -34,6 +34,9 @@ export default function Signup() {
         body: JSON.stringify({ username: newUser.username, password: newUser.password }),
       });
 
+      const data = await loginRes.json();
+      console.log(data);
+
       if (loginRes.ok) {
         toast.success("Logged in successfully! Welcome back.");
         router.replace("/");

@@ -16,11 +16,17 @@ export const fetchConfig = async (
       newUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}${url}`;
     }
 
+    const hasCookie = (name: string) => {
+      return document.cookie.split("; ").some((cookie) => cookie.startsWith(`${name}=`));
+    };
+
+    if (hasCookie("access_token") || hasCookie("refresh_token")) {
+      options.credentials = "include";
+    }
+
     if (!options.method) {
       options.method = "GET";
     }
-
-    options.credentials = "include";
 
     options.headers = {
       ...options.headers,
@@ -40,9 +46,7 @@ export const fetchConfig = async (
         status: response.status,
       };
     } catch {
-      if (response.ok) {
-        return { status: response.status };
-      }
+      if (response.ok) return { status: response.status };
       return {
         error: "An error occurred.",
         status: response.status,

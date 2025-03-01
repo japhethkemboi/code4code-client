@@ -2,11 +2,15 @@
 "use client";
 import { useState } from "react";
 import { Button, InputComponent, toast, ToastContainer } from "c4cui";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ImagePicker } from "./image_picker";
+import { fetchConfig } from "../fetchConfig";
+import { login } from "../login/utils";
 
 export default function Signup() {
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect");
   const [newUser, setNewUser] = useState<any>();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -15,39 +19,23 @@ export default function Signup() {
     e.preventDefault();
     setLoading(true);
 
-    const signupRes = await fetch("/api/signup/", {
+    const signupRes = await fetchConfig("/user/create/", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify(newUser),
     });
 
-    if (signupRes.ok) {
+    if (signupRes.data) {
       toast.success("Signup successful. Logging you in...");
 
-      const loginRes = await fetch("/api/login/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username: newUser.username, password: newUser.password }),
-      });
+      const loginRes = await login({ email: newUser.email, password: newUser.password });
 
-      const data = await loginRes.json();
-      console.log(data);
-
-      if (loginRes.ok) {
-        toast.success("Logged in successfully! Welcome back.");
-        router.replace("/");
-      } else {
-        const errorData = await loginRes.json();
-        toast.error(errorData.error || "Failed to log in. Please try again.");
-      }
-    } else {
-      const errorData = await signupRes.json();
-      toast.error(errorData.error || "Error while creating your account.");
-    }
+      if (loginRes.message) {
+        toast.success(loginRes.message);
+        if (redirect) {
+          router.replace(redirect);
+        } else router.replace("/");
+      } else toast.error(loginRes.error || "Failed to log in. Please try again.");
+    } else toast.error(signupRes.error || "Error while creating your account.");
 
     setLoading(false);
   };
@@ -72,10 +60,10 @@ export default function Signup() {
           placeholder="Last Name"
         />
         <InputComponent
-          name="username"
+          name="email"
           type="email"
-          value={newUser?.username}
-          onChange={(e) => setNewUser({ ...newUser, username: e })}
+          value={newUser?.email}
+          onChange={(e) => setNewUser({ ...newUser, email: e })}
           placeholder="Email Address"
         />
         <InputComponent
@@ -89,7 +77,10 @@ export default function Signup() {
         />
         <Button type="submit" label="Sign up" className="p-4" disabled={loading} />
       </form>
-      <Link href="/login" className="text-[var(--primary-color)] opacity-60 hover:underline">
+      <Link
+        href={`/login${redirect ? `?redirect=${redirect}` : ""}`}
+        className="text-[var(--primary-color)] opacity-60 hover:underline"
+      >
         Already have an account? Login.
       </Link>
       <ToastContainer />

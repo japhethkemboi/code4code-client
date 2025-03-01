@@ -2,10 +2,13 @@
 import React, { useState } from "react";
 import { Button, InputComponent, toast, ToastContainer } from "c4cui";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { login } from "./utils";
 
 export default function Login() {
-  const [credentials, setCredentials] = useState({ username: "", password: "" });
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect");
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -13,20 +16,14 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
 
-    const res = await fetch("/api/login/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    });
-
-    if (res.ok) {
-      toast.success("Logged in successfully! Welcome back.");
-      router.replace("/");
+    const res = await login(credentials);
+    if (res.message) {
+      toast.success(res.message);
+      if (redirect) {
+        router.push(redirect);
+      } else router.push("/");
     } else {
-      const errorData = await res.json();
-      toast.error(errorData.error || "Invalid username or password.");
+      toast.error(res.error || "Invalid username or password.");
     }
 
     setLoading(false);
@@ -37,10 +34,10 @@ export default function Login() {
       <form className="w-full max-w-2xl flex flex-col gap-8" onSubmit={handleSubmit}>
         <h1 className="text-4xl">Login</h1>
         <InputComponent
-          name="username"
+          name="email"
           type="email"
-          value={credentials.username}
-          onChange={(e) => setCredentials({ ...credentials, username: e })}
+          value={credentials.email}
+          onChange={(e) => setCredentials({ ...credentials, email: e })}
           placeholder="Email Address"
         />
         <InputComponent
@@ -52,7 +49,10 @@ export default function Login() {
         />
         <Button type="submit" label="Login" disabled={loading} className="p-4" />
       </form>
-      <Link href="/signup" className="text-[var(--primary-color)] opacity-60 hover:underline">
+      <Link
+        href={`/signup${redirect ? `?redirect=${redirect}` : ""}`}
+        className="text-[var(--primary-color)] opacity-60 hover:underline"
+      >
         Don&apos;t have an account? Signup.
       </Link>
       <ToastContainer />

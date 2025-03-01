@@ -3,24 +3,27 @@ export const Cookie = {
     name,
     value,
     expires,
+    maxAge,
     path = "/",
     domain,
     secure,
-    SameSite,
+    sameSite,
   }: {
     name: string;
     value: string;
     expires?: Date;
+    maxAge?: number;
     path?: string;
     domain?: string;
     secure?: boolean;
-    SameSite?: "Strict" | "Lax" | "None";
+    sameSite?: "Strict" | "Lax" | "None";
   }) => {
     document.cookie =
       `${name}=${encodeURIComponent(value)}` +
       (expires ? `; expires=${expires.toUTCString()}` : "") +
+      (maxAge ? `; Max-Age=${maxAge}` : "") +
       `; path=${path}` +
-      `; SameSite=${SameSite || "Lax"}` +
+      `; SameSite=${sameSite || "Lax"}` +
       (domain ? `; domain=${domain}` : "") +
       (secure ? "; secure" : "");
   },

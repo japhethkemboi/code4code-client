@@ -10,20 +10,15 @@ export const createService = async (service: {
   service?: Service;
   error?: string;
 }> => {
-  const res = await fetch("/api/service/create/", {
+  const res = await fetchConfig("/service/create/", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: JSON.stringify(service),
   });
 
-  const data = await res.json();
-
-  if (res.status === 201) {
-    return { service: data };
+  if (res.data) {
+    return { service: res.data };
   } else {
-    return { error: data.error || "Something went wrong." };
+    return { error: res.error };
   }
 };
 

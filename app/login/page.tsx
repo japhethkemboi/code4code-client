@@ -1,16 +1,20 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, InputComponent, toast, ToastContainer } from "c4cui";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { login } from "./utils";
 
 export default function Login() {
-  const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect");
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [redirect, setRedirect] = useState<string | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setRedirect(params.get("redirect"));
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -1,19 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, InputComponent, toast, ToastContainer } from "c4cui";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ImagePicker } from "./image_picker";
 import { fetchConfig } from "../fetchConfig";
 import { login } from "../login/utils";
 
 export default function Signup() {
-  const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect");
   const [newUser, setNewUser] = useState<any>();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [redirect, setRedirect] = useState<string | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setRedirect(params.get("redirect"));
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

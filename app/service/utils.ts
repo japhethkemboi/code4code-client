@@ -1,5 +1,5 @@
 import { fetchConfig } from "../fetchConfig";
-import { Service } from "../interface";
+import { Service, ServiceFilter } from "./interface";
 
 export const createService = async (service: {
   name: string;
@@ -17,9 +17,7 @@ export const createService = async (service: {
 
   if (res.data) {
     return { service: res.data };
-  } else {
-    return { error: res.error };
-  }
+  } else return { error: res.error };
 };
 
 export const getService = async (
@@ -28,57 +26,46 @@ export const getService = async (
   service?: Service;
   error?: string;
 }> => {
-  const res = await fetchConfig(`/service/manage/${slug}`);
+  const res = await fetchConfig(`/service/manage/${slug}/`);
 
   if (res.data) {
     return { service: res.data };
-  } else {
-    return { error: res.error };
-  }
+  } else return { error: res.error };
 };
 
-export const getSlugs = async (): Promise<{
+export const getServiceSlugs = async (): Promise<{
   slugs?: string[];
   error?: string;
 }> => {
-  const res = await fetchConfig(`/service/slugs`);
+  const res = await fetchConfig(`/service/slugs/`);
 
   if (res.data) {
     return { slugs: res.data };
-  } else {
-    return { error: res.error };
-  }
+  } else return { error: res.error };
 };
 
-export const getServices = async ({
-  search = "",
-  page = 1,
-  page_size = 10,
-}: {
-  search?: string;
-  page?: number;
-  page_size?: number;
-}): Promise<{
-  services?: Service[];
-  next?: string;
-  previous?: string;
+export const getServices = async (
+  filters?: ServiceFilter
+): Promise<{
+  services?: { items: Service[]; next: string | null; previous: string | null; count: number };
   error?: string;
 }> => {
-  const queryParams = new URLSearchParams({
-    search,
-    page: page.toString(),
-    page_size: page_size.toString(),
-  }).toString();
+  const queryParams = new URLSearchParams();
 
-  const res = await fetchConfig(`/service/list/?${queryParams}`);
+  if (filters?.search) queryParams.append("search", filters.search);
+  if (filters?.offset) queryParams.append("offset", filters.offset?.toString());
+  if (filters?.limit) queryParams.append("limit", filters.limit.toString());
+  if (filters?.posted_by) queryParams.append("posted_by", filters.posted_by);
+  if (filters?.status) queryParams.append("status", filters.status.toString());
+  if (filters?.tags) queryParams.append("tags", filters.tags.toString());
+
+  const res = await fetchConfig(
+    filters?.next ? filters.next : filters?.prev ? filters.prev : `/service/list/?${queryParams}`
+  );
 
   if (res.data) {
     return {
-      services: res.data.results,
-      next: res.data.next,
-      previous: res.data.previous,
+      services: { items: res.data.results, next: res.data.next, previous: res.data.previous, count: res.data.count },
     };
-  } else {
-    return { error: res.error };
-  }
+  } else return { error: res.error };
 };

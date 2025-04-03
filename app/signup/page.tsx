@@ -36,7 +36,9 @@ export default function Signup() {
       if (loginRes.message) {
         toast.success(loginRes.message);
         if (redirect) {
-          router.replace(redirect);
+          if (redirect.startsWith("http://") || redirect.startsWith("https://")) {
+            window.location.href = redirect;
+          } else router.replace(redirect);
         } else router.replace("/");
       } else toast.error(loginRes.error || "Failed to log in. Please try again.");
     } else toast.error(signupRes.error || "Error while creating your account.");
@@ -52,30 +54,30 @@ export default function Signup() {
         <InputComponent
           name="first_name"
           type="name"
-          value={newUser?.first_name}
-          onChange={(e) => setNewUser({ ...newUser, first_name: e })}
+          value={newUser?.first_name || ""}
+          onChange={(e) => setNewUser({ ...(newUser || {}), first_name: e })}
           placeholder="First Name"
         />
         <InputComponent
           name="last_name"
           type="name"
-          value={newUser?.last_name}
-          onChange={(e) => setNewUser({ ...newUser, last_name: e })}
+          value={newUser?.last_name || ""}
+          onChange={(e) => setNewUser({ ...(newUser || {}), last_name: e })}
           placeholder="Last Name"
         />
         <InputComponent
           name="email"
           type="email"
-          value={newUser?.email}
-          onChange={(e) => setNewUser({ ...newUser, email: e })}
+          value={newUser?.email || ""}
+          onChange={(e) => setNewUser({ ...(newUser || {}), email: e })}
           placeholder="Email Address"
         />
         <InputComponent
           name="password"
           type="password"
           minLength={8}
-          value={newUser?.password}
-          onChange={(e) => setNewUser({ ...newUser, password: e })}
+          value={newUser?.password || ""}
+          onChange={(e) => setNewUser({ ...(newUser || {}), password: e })}
           placeholder="Password"
           generatePassword={true}
         />

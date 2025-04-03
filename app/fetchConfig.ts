@@ -16,17 +16,9 @@ export const fetchConfig = async (
       newUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}${url}`;
     }
 
-    const hasCookie = (name: string) => {
-      return document.cookie.split("; ").some((cookie) => cookie.startsWith(`${name}=`));
-    };
+    if (!options.credentials) options.credentials = "include";
 
-    if (hasCookie("access_token") || hasCookie("refresh_token")) {
-      options.credentials = "include";
-    }
-
-    if (!options.method) {
-      options.method = "GET";
-    }
+    if (!options.method) options.method = "GET";
 
     options.headers = {
       ...options.headers,

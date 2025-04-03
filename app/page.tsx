@@ -1,9 +1,9 @@
 import { ServicesTile } from "./components/services";
 import { Workflow } from "./components/workflow";
-import { ConsultForm } from "./consult/consult_form";
 import { Industries } from "./components/industries";
 import { Blogs } from "./components/blogs";
 import { Hero } from "./components/hero";
+import { BookingForm } from "./booking/create/form";
 
 export default function Home() {
   return (
@@ -33,7 +33,7 @@ export default function Home() {
             </p>
           </div>
           <div className="flex flex-col gap-4 p-4 w-full">
-            <ConsultForm />
+            <BookingForm />
           </div>
         </div>
       </div>

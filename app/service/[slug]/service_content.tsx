@@ -1,11 +1,11 @@
 "use client";
-import { Service } from "@/app/interface";
 import { Button } from "c4cui";
 import { BsArrowLeft } from "react-icons/bs";
 import DOMPurify from "dompurify";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { Service } from "../interface";
 
 export const ServiceContent = ({ service }: { service: Service }) => {
   const [isClient, setIsClient] = useState(false);
@@ -53,13 +53,21 @@ export const ServiceContent = ({ service }: { service: Service }) => {
         <div className="flex flex-col gap-4 md:flex-row">
           <Button
             label="Get a Free Quote"
-            onClick={() => router.push(`/consult?${service.slug}`)}
+            onClick={() =>
+              router.push(
+                `/booking/create?service=${service.slug}&booking_type=Inquiry&message=How much would it cost me to get serrvice ${service.name}?`
+              )
+            }
             className="w-full md:w-auto whitespace-nowrap"
           />
           <Button
             label="Consult how this can help your business"
             outline={true}
-            onClick={() => router.push(`/consult?${service.slug}`)}
+            onClick={() =>
+              router.push(
+                `/booking/create?service=${service.slug}&booking_type=Cunsultation&message=Consult how service ${service.name} can help my business.`
+              )
+            }
             className="w-full md:w-auto border-none"
           />
         </div>

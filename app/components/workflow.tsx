@@ -1,10 +1,8 @@
 "use client";
-import { Button } from "c4cui";
-import { useRouter } from "next/navigation";
+
+import Link from "next/link";
 
 export const Workflow = () => {
-  const router = useRouter();
-
   return (
     <div className="flex flex-col min-h-screen py-20 justify-center items-center w-full">
       <div className="flex flex-col gap-10 min-h-screen justify-center p-4 w-full max-w-7xl">
@@ -32,12 +30,12 @@ export const Workflow = () => {
           </p>
         </div>
         <p className="text-lg opacity-80">And when it’s done, it’s more than just code.</p>
-        <Button
-          outline={true}
-          onClick={() => router.push("/consult")}
-          className="mr-auto"
-          label="Create a lasting impact with us"
-        />
+        <Link
+          href={`/booking/create/?booking_type=Inquiry`}
+          className="text-[var(--primary-color)] hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
+        >
+          Get a Free Quote
+        </Link>
       </div>
     </div>
   );

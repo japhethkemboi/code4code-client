@@ -6,8 +6,8 @@ import { GoArrowUpRight } from "react-icons/go";
 import Link from "next/link";
 import { Button, toast } from "c4cui";
 import { PiPlus } from "react-icons/pi";
-import { Service } from "../interface";
 import { getServices } from "../service/utils";
+import { Service } from "../service/interface";
 
 export const Header = () => {
   const [isServicesHovered, setIsServicesHovered] = useState(false);
@@ -17,10 +17,10 @@ export const Header = () => {
 
   useEffect(() => {
     const fetchServices = async () => {
-      const res = await getServices({ page_size: 6 });
+      const res = await getServices({ offset: 0, limit: 6 });
 
       if (res.services) {
-        setServices(res.services);
+        setServices(res.services.items);
       } else {
         toast.error(res.error || "Couldn't fetch services.");
       }
@@ -48,7 +48,7 @@ export const Header = () => {
             Services
           </Link>
           <Link
-            href="/consult"
+            href="/booking/create"
             onMouseEnter={() => setIsServicesHovered(false)}
             className="hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
           >

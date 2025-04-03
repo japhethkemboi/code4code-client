@@ -15,7 +15,7 @@ export default function ServiceForm({
 }) {
   const [isClient, setIsClient] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const { openModal, closeModal, isOpen, modalContent } = useModal();
+  const { openModal, closeModal } = useModal();
 
   useEffect(() => {
     setIsClient(true);
@@ -47,13 +47,13 @@ export default function ServiceForm({
   if (!isClient) return null;
 
   return (
-    <form className="flex flex-col gap-4 p-4 w-full max-w-7xl">
+    <form className="flex flex-col h-full gap-4 p-4 w-full max-w-7xl">
       <InputComponent
         type="text"
         placeholder="Name"
         maxLength={250}
         value={data.name}
-        onChange={(e) => setData({ ...data, description: e })}
+        onChange={(e) => setData({ ...data, name: e })}
       />
       <InputComponent
         type="textarea"
@@ -62,24 +62,30 @@ export default function ServiceForm({
         value={data.description}
         onChange={(e) => setData({ ...data, description: e })}
       />
-      <RichTextEditor value={data.story} onChange={(e) => setData({ ...data, description: e })} />
+      <InputComponent
+        type="textarea"
+        placeholder="Story"
+        rows={10}
+        value={data.story}
+        onChange={(e) => setData({ ...data, story: e })}
+      />
       <div onClick={() => fileInputRef.current?.click()} className="flex w-auto mr-auto gap-4 shrink-0">
         {data.poster && <img src={data.poster} alt="Preview" width={130} height={130} className="rounded-xl" />}
-        <div className="flex flex-col w-auto gap-4">
-          <span>{data.poster ? "Change" : "Select"} poster</span>
+        <div className="flex flex-col items-start justify-center w-auto gap-4">
+          <span className="font-light opacity-70">{data.poster ? "Change" : "Select"} poster</span>
           {data.poster ? (
             <Button
+              outline
               onClick={() => fileInputRef.current?.click()}
-              outline={true}
               icon={<PiPen size={24} />}
-              className="cursor-pointer p-4 border-none"
+              className="cursor-pointer border-none"
             />
           ) : (
             <Button
+              outline
               onClick={() => fileInputRef.current?.click()}
-              outline={true}
               icon={<PiPlus size={24} />}
-              className="cursor-pointer p-4 border-none"
+              className="cursor-pointer border-none"
             />
           )}
         </div>
@@ -93,7 +99,6 @@ export default function ServiceForm({
         />
       </div>
       <Button label="Add Service" onClick={handleSubmit} className="ml-auto" />
-      <Modal isOpen={isOpen}>{modalContent}</Modal>
     </form>
   );
 }

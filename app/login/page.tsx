@@ -24,11 +24,11 @@ export default function Login() {
     if (res.message) {
       toast.success(res.message);
       if (redirect) {
-        router.push(redirect);
+        if (redirect.startsWith("http://") || redirect.startsWith("https://")) {
+          window.location.href = redirect;
+        } else router.replace(redirect);
       } else router.push("/");
-    } else {
-      toast.error(res.error || "Invalid username or password.");
-    }
+    } else toast.error(res.error || "Invalid username or password.");
 
     setLoading(false);
   };

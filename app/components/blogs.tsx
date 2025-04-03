@@ -9,59 +9,64 @@ import { toast } from "c4cui";
 import Link from "next/link";
 
 export function Blogs() {
-  const [blogs, setBlogs] = useState<Blog[] | null>(null);
+  const [blogs, setBlogs] = useState<Blog[]>();
 
   useEffect(() => {
     const fetchBlogs = async () => {
-      const res = await fetchConfig(`/blog/list/`);
+      const res = await fetchConfig(`/blog/list/?limit=6`);
       if (res.data) {
         setBlogs(res.data.results);
-      } else {
-        toast.error(res.error || "Could'nt fetch blogs.");
-      }
+      } else toast.error(res.error || "Could'nt fetch blogs.");
     };
     fetchBlogs();
   }, []);
 
   return (
     <div className="flex flex-col w-full gap-8 min-h-screen items-center justify-center py-20">
-      <div className="flex flex-col w-full gap-8 max-w-7xl p-4">
+      <div className="flex flex-col w-full grow shrink-0 gap-8 max-w-7xl p-4">
         <h2 className="text-2xl md:text-4xl tracking-tight leading-tight">Our blogs</h2>
 
-        {blogs ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 w-full gap-8">
-            {blogs.length > 0 ? (
-              blogs.slice(0, 4).map((blog) => (
-                <div key={blog.slug} className="flex sm:flex-col gap-4 shrink-0">
-                  {blog.poster && (
-                    <Image
-                      alt={blog.slug}
-                      width={500}
-                      height={500}
-                      className="size-36 sm:w-full sm:h-auto max-h-48 rounded-xl"
-                      src={process.env.NEXT_PUBLIC_SERVER_URL + blog.poster}
-                    />
-                  )}
-                  <div className="flex flex-col gap-4">
-                    <Link href={`/service/${blog.slug}`} className="text-lg font-semibold hover:underline">
-                      {blog.title}
-                    </Link>
-                    <div
-                      className="line-clamp-3 overflow-ellipsis"
-                      dangerouslySetInnerHTML={{
-                        __html: DOMPurify.sanitize(blog.content),
-                      }}
-                    />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-full gap-8">
+          {blogs ? (
+            <>
+              {blogs.length > 0 ? (
+                blogs.map((blog) => (
+                  <div key={blog.slug} className="flex sm:flex-col gap-4 shrink-0">
+                    {blog.poster && (
+                      <Image
+                        alt={blog.slug}
+                        width={500}
+                        height={500}
+                        className="size-36 sm:w-full sm:h-auto max-h-48 rounded-xl"
+                        src={process.env.NEXT_PUBLIC_SERVER_URL + blog.poster}
+                      />
+                    )}
+                    <div className="flex flex-col gap-4">
+                      <Link href={`/service/${blog.slug}`} className="text-lg font-semibold hover:underline">
+                        {blog.title}
+                      </Link>
+                      <div
+                        className="line-clamp-3 overflow-ellipsis"
+                        dangerouslySetInnerHTML={{
+                          __html: DOMPurify.sanitize(blog.content),
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))
-            ) : (
-              <p>No blogs published.</p>
-            )}
-          </div>
-        ) : (
-          <Skeleton />
-        )}
+                ))
+              ) : (
+                <p>No blogs published.</p>
+              )}
+            </>
+          ) : (
+            Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="flex items-center sm:items-start sm:flex-col sm:h-full gap-4 w-full">
+                <div className="size-36 w-52 sm:w-full sm:h-48 bg-[var(--simmer-color)] animate-pulse rounded-xl"></div>
+                <div className="h-20 sm:h-3 rounded-xl sm:rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
+              </div>
+            ))
+          )}
+        </div>
         <Link
           href={process.env.NEXT_PUBLIC_BLOG_URL || "/blog"}
           className="mr-auto flex items-center hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
@@ -73,64 +78,3 @@ export function Blogs() {
     </div>
   );
 }
-
-export const Skeleton = () => {
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 w-full gap-8">
-      <div className="flex sm:flex-col gap-4 w-full shrink-0">
-        <div className="flex shrink-0 size-36 sm:w-full max-w-48 sm:h-full max-h-48 bg-[var(--simmer-color)] animate-pulse rounded-xl"></div>
-        <div className="flex flex-col gap-4 w-full">
-          <div className="h-2 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-          <div className="h-1 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-          <div className="h-1 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-          <div className="h-1 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-        </div>
-      </div>
-      <div className="flex sm:flex-col gap-4 w-full shrink-0">
-        <div className="flex shrink-0 size-36 sm:w-full max-w-48 sm:h-full max-h-48 bg-[var(--simmer-color)] animate-pulse rounded-xl"></div>
-        <div className="flex flex-col gap-4 w-full">
-          <div className="h-2 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-          <div className="h-1 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-          <div className="h-1 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-          <div className="h-1 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-        </div>
-      </div>
-      <div className="flex sm:flex-col gap-4 w-full shrink-0">
-        <div className="flex shrink-0 size-36 sm:w-full max-w-48 sm:h-full max-h-48 bg-[var(--simmer-color)] animate-pulse rounded-xl"></div>
-        <div className="flex flex-col gap-4 w-full">
-          <div className="h-2 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-          <div className="h-1 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-          <div className="h-1 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-          <div className="h-1 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-        </div>
-      </div>
-      <div className="flex sm:flex-col gap-4 w-full shrink-0">
-        <div className="flex shrink-0 size-36 sm:w-full max-w-48 sm:h-full max-h-48 bg-[var(--simmer-color)] animate-pulse rounded-xl"></div>
-        <div className="flex flex-col gap-4 w-full">
-          <div className="h-2 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-          <div className="h-1 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-          <div className="h-1 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-          <div className="h-1 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-        </div>
-      </div>
-      <div className="flex sm:flex-col gap-4 w-full shrink-0">
-        <div className="flex shrink-0 size-36 sm:w-full max-w-48 sm:h-full max-h-48 bg-[var(--simmer-color)] animate-pulse rounded-xl"></div>
-        <div className="flex flex-col gap-4 w-full">
-          <div className="h-2 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-          <div className="h-1 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-          <div className="h-1 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-          <div className="h-1 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-        </div>
-      </div>
-      <div className="flex sm:flex-col gap-4 w-full shrink-0">
-        <div className="flex shrink-0 size-36 sm:w-full max-w-48 sm:h-full max-h-48 bg-[var(--simmer-color)] animate-pulse rounded-xl"></div>
-        <div className="flex flex-col gap-4 w-full">
-          <div className="h-2 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-          <div className="h-1 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-          <div className="h-1 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-          <div className="h-1 rounded-full w-full bg-[var(--simmer-color)] animate-pulse"></div>
-        </div>
-      </div>
-    </div>
-  );
-};

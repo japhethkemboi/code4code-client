@@ -1,31 +1,26 @@
-import { Service } from "@/app/interface";
-import { fetchConfig } from "@/app/fetchConfig";
 import { ServiceContent } from "./service_content";
+import { getService, getServiceSlugs } from "../utils";
 
 export async function generateStaticParams() {
-  const res = await fetchConfig(`/service/slugs/`);
-  if (res.data) {
-    const slugs: string[] = (res.data as string[]) || [];
-    return slugs.map((slug) => ({ params: { slug } }));
-  } else {
-    return [];
-  }
+  const res = await getServiceSlugs();
+  return res.slugs ? res.slugs.map((slug: string) => ({ slug })) : [];
 }
 
 export default async function ServiceView({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
-  const res = await fetchConfig(`/service/manage/${slug}/`);
+  const res = await getService(slug);
 
-  if (res.data) {
-    const service: Service = res.data as Service;
-
+  if (res.service) {
     return (
       <div className="flex flex-col items-center w-full">
-        <ServiceContent service={service} />
+        <ServiceContent service={res.service} />
       </div>
     );
-  } else {
-    return <p>OOps! Something went wrong.</p>;
-  }
+  } else
+    return (
+      <div className="flex flex-col items-center justify-center w-full h-full">
+        <p>Couldn't fetch service.</p>
+      </div>
+    );
 }

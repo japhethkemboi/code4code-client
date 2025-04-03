@@ -1,7 +1,7 @@
 "use client";
-import { Service } from "@/app/interface";
 import { Button } from "c4cui";
 import Link from "next/link";
+import { Service } from "../interface";
 
 export const ServiceTile = ({ service }: { service: Service }) => {
   return (
@@ -12,7 +12,9 @@ export const ServiceTile = ({ service }: { service: Service }) => {
         <Link href={`/service/${service.slug}`}>
           <Button label="Learn more" outline={true} className="border-none" />
         </Link>
-        <Link href={`/consult?${service.slug}`}>
+        <Link
+          href={`/booking/create?service=${service.slug}&booking_type=Inquiry&message=Inquire about service ${service.name}`}
+        >
           <Button label="Get Free Quote" outline={true} className="border-none" />
         </Link>
       </div>

@@ -4,30 +4,21 @@ import { useEffect, useState } from "react";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import Link from "next/link";
 import DOMPurify from "dompurify";
-import { Service } from "../interface";
 import { useRouter } from "next/navigation";
 import { getServices } from "../service/utils";
+import { Service } from "../service/interface";
 
 export const ServicesTile = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [services, setServices] = useState<Service[] | null>(null);
+  const [services, setServices] = useState<Service[]>();
   const router = useRouter();
 
   useEffect(() => {
-    const fetchServices = async () => {
-      const res = await getServices({});
-
-      if (res.services) {
-        setServices(res.services);
-      } else {
-        toast.error(res.error || "Couldn't fetch services.");
-      }
-    };
     fetchServices();
   }, []);
 
   useEffect(() => {
-    if (services) {
+    if (services && services.length > 0) {
       const interval = setInterval(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % services.length);
       }, 7000);
@@ -36,22 +27,28 @@ export const ServicesTile = () => {
     }
   }, []);
 
-  return (
-    <div className="flex flex-col w-full gap-8 min-h-screen items-center justify-center p-4 bg-[var(--services-tile-background-color)] text-[var(--services-tile-text-color)]">
-      <div className="flex flex-col w-full gap-4 max-w-7xl">
-        <h2 className="text-2xl md:text-4xl tracking-tight text-darkGray leading-tight">
-          Empower Your Business with Tailored Solutions
-        </h2>
-        <p className="opacity-60">
-          At CODE4CODE, our custom solutions are crafted to deliver world-class results—designed specifically for your
-          business.
-        </p>
-      </div>
+  const fetchServices = async () => {
+    const res = await getServices({ limit: 12 });
 
-      {services ? (
-        services.length > 0 ? (
-          <>
-            <div className="relative flex flex-col w-full max-w-7xl gap-8 rounded-xl min-h-96 justify-center">
+    if (res.services) {
+      setServices(res.services.items);
+    } else toast.error(res.error || "Couldn't fetch services.");
+  };
+
+  return (
+    <div className="flex flex-col w-full min-h-screen items-center justify-center bg-[var(--services-tile-background-color)] text-[var(--services-tile-text-color)]">
+      <div className="flex flex-col w-full gap-8 h-full items-center justify-center p-4 max-w-7xl">
+        <div className="flex flex-col w-full gap-4">
+          <h2 className="text-2xl md:text-4xl">Empower Your Business with Tailored Solutions</h2>
+          <p className="opacity-60">
+            At CODE4CODE, our custom solutions are crafted to deliver world-class results—designed specifically for your
+            business.
+          </p>
+        </div>
+
+        {services ? (
+          services.length > 0 ? (
+            <div className="relative flex flex-col w-full gap-8 rounded-xl min-h-96 justify-center">
               <div className="absolute top-0 left-10 text-[12rem] font-extrabold opacity-20">0{currentIndex + 1}</div>
               <Link
                 href={`/service/${services[currentIndex]?.slug}`}
@@ -106,13 +103,18 @@ export const ServicesTile = () => {
                 </div>
               </div>
             </div>
-          </>
+          ) : (
+            <div className="flex w-full gap-2">
+              <p className="font-extralight opacity-80">No service posted. Inquire service at</p>
+              <a className="hover:underline cursor-pointer" href="mailto:contact@code4code.dev">
+                contact@code4code.dev
+              </a>
+            </div>
+          )
         ) : (
-          <p className="opacity-60">No service posted. Inquire service at contact@code4code.dev</p>
-        )
-      ) : (
-        <Skeleton />
-      )}
+          <Skeleton />
+        )}
+      </div>
     </div>
   );
 };

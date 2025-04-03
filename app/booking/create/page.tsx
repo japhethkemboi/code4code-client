@@ -1,4 +1,4 @@
-import { ConsultForm } from "./consult_form";
+import { BookingForm } from "./form";
 
 export default function Consult() {
   return (
@@ -12,7 +12,7 @@ export default function Consult() {
           </p>
         </div>
         <div className="flex flex-col gap-4 p-4 w-full">
-          <ConsultForm />
+          <BookingForm />
         </div>
       </div>
     </div>

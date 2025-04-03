@@ -23,6 +23,7 @@ export default function TermsOfService() {
           CODE4CODE is not liable for any indirect, incidental, or consequential damages arising from the use of our
           services.
         </p>
+
         <h2 className="text-2xl font-bold">4. Amendments</h2>
         <p>
           We reserve the right to update these terms at any time without prior notice. Continued use of our services

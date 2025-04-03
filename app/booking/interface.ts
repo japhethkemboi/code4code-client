@@ -1,4 +1,4 @@
-import { Profile } from "../interface";
+import { Profile } from "../profile/interface";
 import { Service } from "../service/interface";
 
 export interface Booking {

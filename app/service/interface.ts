@@ -1,4 +1,4 @@
-import { Profile } from "../interface";
+import { Profile } from "../profile/interface";
 
 export interface Service {
   slug: string;

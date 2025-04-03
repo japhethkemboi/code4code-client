@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { BookingForm } from "./form";
 
 export default function Consult() {
@@ -12,7 +13,9 @@ export default function Consult() {
           </p>
         </div>
         <div className="flex flex-col gap-4 p-4 w-full">
-          <BookingForm />
+          <Suspense fallback={<div>Loading...</div>}>
+            <BookingForm />
+          </Suspense>
         </div>
       </div>
     </div>

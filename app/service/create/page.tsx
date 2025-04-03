@@ -52,7 +52,7 @@ export default function CreateService() {
   };
 
   return !profile ? (
-    !fetchProfile ? (
+    !fetchingProfile ? (
       <div className="flex flex-col w-full gap-8 justify-center items-center">
         <p className="text-5xl">You must sign in to view this page.</p>
       </div>

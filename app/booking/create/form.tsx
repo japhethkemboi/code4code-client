@@ -2,21 +2,23 @@
 import { Button, InputComponent, toast, ToastContainer } from "c4cui";
 import { useEffect, useState } from "react";
 import { fetchConfig } from "../../fetchConfig";
-import { useSearchParams } from "next/navigation";
 
 export const BookingForm = () => {
-  const searchParams = useSearchParams();
+  const [isClient, setIsClient] = useState(false);
   const [sending, setSending] = useState(false);
   const [formValues, setFormValues] = useState<any>();
 
   useEffect(() => {
-    setFormValues({
-      ...(formValues || {}),
-      booking_type: searchParams.get("booking_type") || "",
-      booking_type_description: searchParams.get("booking_type_description") || "",
-      service: searchParams.get("service") || "",
-      message: searchParams.get("message") || "",
-    });
+    setIsClient(true);
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      setFormValues({
+        booking_type: params.get("booking_type") || "",
+        booking_type_description: params.get("booking_type_description") || "",
+        service: params.get("service") || "",
+        message: params.get("message") || "",
+      });
+    }
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -36,6 +38,8 @@ export const BookingForm = () => {
     } else toast.error(res.error || "Error while creating booking, please try again.");
     setSending(false);
   };
+
+  if (!isClient) return null;
 
   return (
     <form className="flex flex-col shrink-0 grow w-full gap-4 max-w-4xl relative" onSubmit={handleSubmit}>
@@ -96,7 +100,7 @@ export const BookingForm = () => {
         label={
           sending
             ? "Sending..."
-            : searchParams.get("booking_type")?.toLowerCase() === "inquiry"
+            : formValues.booking_type?.toLowerCase() === "inquiry"
             ? "Inquire"
             : "Book Consultation"
         }

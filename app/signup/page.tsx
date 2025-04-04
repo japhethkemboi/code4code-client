@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useEffect, useState } from "react";
-import { Button, InputComponent, toast, ToastContainer } from "c4cui";
+import { Button, InputComponent, ModalProvider, toast, ToastContainer } from "c4cui";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ImagePicker } from "./image_picker";
@@ -47,10 +47,12 @@ export default function Signup() {
   };
 
   return (
-    <div className="pt-24 p-4 w-full flex flex-col gap-8 justify-center items-center bg-[var(--background-color)] text-[var(--text-color)]">
+    <div className="pt-24 p-4 w-full flex flex-col gap-8 justify-center items-center">
       <form className="w-full max-w-2xl flex flex-col gap-8" onSubmit={handleSubmit}>
         <h1 className="text-4xl">Sign up</h1>
-        <ImagePicker image={newUser?.avatar} setImage={(e) => setNewUser({ ...newUser, avatar: e })} />
+        <ModalProvider>
+          <ImagePicker image={newUser?.avatar} setImage={(e) => setNewUser({ ...newUser, avatar: e })} />
+        </ModalProvider>
         <InputComponent
           name="first_name"
           type="name"

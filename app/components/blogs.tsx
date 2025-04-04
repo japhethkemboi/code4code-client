@@ -30,30 +30,39 @@ export function Blogs() {
           {blogs ? (
             <>
               {blogs.length > 0 ? (
-                blogs.map((blog) => (
-                  <div key={blog.slug} className="flex sm:flex-col gap-4 shrink-0">
-                    {blog.poster && (
-                      <Image
-                        alt={blog.slug}
-                        width={500}
-                        height={500}
-                        className="size-36 sm:w-full sm:h-auto max-h-48 rounded-xl"
-                        src={process.env.NEXT_PUBLIC_SERVER_URL + blog.poster}
-                      />
-                    )}
-                    <div className="flex flex-col gap-4">
-                      <Link href={`/service/${blog.slug}`} className="text-lg font-semibold hover:underline">
-                        {blog.title}
-                      </Link>
-                      <div
-                        className="line-clamp-3 overflow-ellipsis"
-                        dangerouslySetInnerHTML={{
-                          __html: DOMPurify.sanitize(blog.content),
-                        }}
-                      />
+                <>
+                  {blogs.map((blog) => (
+                    <div key={blog.slug} className="flex sm:flex-col gap-4 shrink-0">
+                      {blog.poster && (
+                        <Image
+                          alt={blog.slug}
+                          width={500}
+                          height={500}
+                          className="size-36 sm:w-full sm:h-auto max-h-48 rounded-xl"
+                          src={process.env.NEXT_PUBLIC_SERVER_URL + blog.poster}
+                        />
+                      )}
+                      <div className="flex flex-col gap-4">
+                        <Link href={`/service/${blog.slug}`} className="text-lg font-semibold hover:underline">
+                          {blog.title}
+                        </Link>
+                        <div
+                          className="line-clamp-3 overflow-ellipsis"
+                          dangerouslySetInnerHTML={{
+                            __html: DOMPurify.sanitize(blog.content),
+                          }}
+                        />
+                      </div>
                     </div>
-                  </div>
-                ))
+                  ))}
+                  <Link
+                    href={process.env.NEXT_PUBLIC_BLOG_URL || "/blog"}
+                    className="mr-auto flex items-center hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
+                  >
+                    Discover More Blog Posts
+                    <GoArrowUpRight />
+                  </Link>
+                </>
               ) : (
                 <p>No blogs published.</p>
               )}
@@ -67,13 +76,6 @@ export function Blogs() {
             ))
           )}
         </div>
-        <Link
-          href={process.env.NEXT_PUBLIC_BLOG_URL || "/blog"}
-          className="mr-auto flex items-center hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
-        >
-          Discover More Blog Posts
-          <GoArrowUpRight />
-        </Link>
       </div>
     </div>
   );

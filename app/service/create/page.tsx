@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { ModalProvider, toast, ToastContainer } from "c4cui";
+import { Button, ModalProvider, toast, ToastContainer } from "c4cui";
 import "react-quill-new/dist/quill.snow.css";
 import ServiceForm from "./form";
 import { createService } from "../utils";
@@ -53,8 +53,9 @@ export default function CreateService() {
 
   return !profile ? (
     !fetchingProfile ? (
-      <div className="flex flex-col w-full gap-8 justify-center items-center">
+      <div className="flex flex-col w-full h-full gap-8 justify-center items-center">
         <p className="text-5xl">You must sign in to view this page.</p>
+        <Button label="Login" onClick={() => router.push("/login")} />
       </div>
     ) : null
   ) : ["ADMIN"].includes(profile?.role || "") ? (
@@ -68,8 +69,8 @@ export default function CreateService() {
       <ToastContainer />
     </div>
   ) : (
-    <div className="flex flex-col w-full gap-8 justify-center items-center">
-      <p className="text-5xl">You must sign in to view this page.</p>
+    <div className="flex flex-col w-full h-full gap-8 justify-center items-center">
+      <p className="text-5xl">Loading...</p>
     </div>
   );
 }

@@ -29,7 +29,7 @@ export default function ServiceForm({
         openModal(
           <Cropper
             title="Edit Poster"
-            handleImageChange={handleImageChange}
+            onImageEdit={() => fileInputRef.current?.click()}
             image={reader.result as string}
             setImage={(e) => setData({ ...data, poster: e })}
             handleClose={() => {

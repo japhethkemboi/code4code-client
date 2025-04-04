@@ -76,6 +76,12 @@ export function Blogs() {
             ))
           )}
         </div>
+        <Link
+          href={process.env.NEXT_PUBLIC_BLOG_URL || "/blog"}
+          className="mr-auto flex items-center hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
+        >
+          Start writing your own blog posts for free.
+        </Link>
       </div>
     </div>
   );

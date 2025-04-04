@@ -7,6 +7,7 @@ import { createService } from "../utils";
 import { useRouter } from "next/navigation";
 import { Profile } from "@/app/profile/interface";
 import { getMyProfile } from "@/app/profile/utils";
+import Link from "next/link";
 
 export default function CreateService() {
   const [fetchingProfile, setFetchingProfile] = useState(false);
@@ -54,10 +55,19 @@ export default function CreateService() {
   return !profile ? (
     !fetchingProfile ? (
       <div className="flex flex-col w-full h-full gap-8 justify-center items-center">
-        <p className="text-5xl">You must sign in to view this page.</p>
-        <Button label="Login" onClick={() => router.push("/login")} />
+        <p>You must sign in to view this page.</p>
+        <Link
+          href="/login"
+          className="mr-auto flex items-center hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
+        >
+          Go to sign in page
+        </Link>
       </div>
-    ) : null
+    ) : (
+      <div className="flex flex-col w-full h-full gap-8 justify-center items-center">
+        <p>Loading...</p>
+      </div>
+    )
   ) : ["ADMIN"].includes(profile?.role || "") ? (
     <div className="flex flex-col w-full gap-8 justify-center items-center">
       <div className="flex flex-col gap-4 pt-36 p-4 w-full max-w-7xl bg-[var(--header-background-color)] text-[var(--header-text-color)]">
@@ -70,7 +80,25 @@ export default function CreateService() {
     </div>
   ) : (
     <div className="flex flex-col w-full h-full gap-8 justify-center items-center">
-      <p className="text-5xl">Loading...</p>
+      <p>404 Page not found</p>
+      <Link
+        href="/"
+        className="mr-auto flex items-center hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
+      >
+        Go to home page
+      </Link>
+      <Link
+        href="/service/list"
+        className="mr-auto flex items-center hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
+      >
+        Browse services
+      </Link>
+      <Link
+        href={process.env.NEXT_PUBLIC_BLOG_URL || "/blog"}
+        className="mr-auto flex items-center hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
+      >
+        Read or create your own blog posts
+      </Link>
     </div>
   );
 }

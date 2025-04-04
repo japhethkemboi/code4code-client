@@ -1,7 +1,6 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
-import { Button, Cropper, InputComponent, Modal, RichTextEditor, useModal } from "c4cui";
-import "react-quill-new/dist/quill.snow.css";
+import { Button, Cropper, InputComponent, useModal } from "c4cui";
 import { PiPen, PiPlus } from "react-icons/pi";
 
 export default function ServiceForm({
@@ -73,21 +72,12 @@ export default function ServiceForm({
         {data.poster && <img src={data.poster} alt="Preview" width={130} height={130} className="rounded-xl" />}
         <div className="flex flex-col items-start justify-center w-auto gap-4">
           <span className="font-light opacity-70">{data.poster ? "Change" : "Select"} poster</span>
-          {data.poster ? (
-            <Button
-              outline
-              onClick={() => fileInputRef.current?.click()}
-              icon={<PiPen size={24} />}
-              className="cursor-pointer border-none"
-            />
-          ) : (
-            <Button
-              outline
-              onClick={() => fileInputRef.current?.click()}
-              icon={<PiPlus size={24} />}
-              className="cursor-pointer border-none"
-            />
-          )}
+          <Button
+            outline
+            onClick={() => fileInputRef.current?.click()}
+            icon={data.poster ? <PiPen size={24} /> : <PiPlus size={24} />}
+            className="cursor-pointer border-none"
+          />
         </div>
         <input
           ref={fileInputRef}

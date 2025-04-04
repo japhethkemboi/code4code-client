@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button, ModalProvider, toast, ToastContainer } from "c4cui";
-import "react-quill-new/dist/quill.snow.css";
+import { ModalProvider, toast, ToastContainer } from "c4cui";
 import ServiceForm from "./form";
 import { createService } from "../utils";
 import { useRouter } from "next/navigation";
@@ -58,7 +57,7 @@ export default function CreateService() {
         <p>You must sign in to view this page.</p>
         <Link
           href="/login"
-          className="mr-auto flex items-center hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
+          className="flex items-center hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
         >
           Go to sign in page
         </Link>
@@ -69,33 +68,33 @@ export default function CreateService() {
       </div>
     )
   ) : ["ADMIN"].includes(profile?.role || "") ? (
-    <div className="flex flex-col w-full gap-8 justify-center items-center">
-      <div className="flex flex-col gap-4 pt-36 p-4 w-full max-w-7xl bg-[var(--header-background-color)] text-[var(--header-text-color)]">
-        <h2 className="text-4xl font-extralight">Add a service</h2>
-      </div>
-      <ModalProvider>
+    <ModalProvider>
+      <div className="flex flex-col w-full gap-8 justify-center items-center">
+        <div className="flex flex-col gap-4 pt-36 p-4 w-full max-w-7xl bg-[var(--header-background-color)] text-[var(--header-text-color)]">
+          <h2 className="text-4xl font-extralight">Add a service</h2>
+        </div>
         <ServiceForm data={data} setData={setData} handleSubmit={handleSubmit} />
-      </ModalProvider>
-      <ToastContainer />
-    </div>
+        <ToastContainer />
+      </div>
+    </ModalProvider>
   ) : (
-    <div className="flex flex-col w-full h-full gap-8 justify-center items-center text-center">
+    <div className="flex flex-col w-full h-full gap-8 justify-center items-center">
       <p>404 Page not found</p>
       <Link
         href="/"
-        className="mr-auto flex items-center hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
+        className="flex items-center hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
       >
         Go to home page
       </Link>
       <Link
         href="/service/list"
-        className="mr-auto flex items-center hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
+        className="flex items-center hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
       >
         Browse services
       </Link>
       <Link
         href={process.env.NEXT_PUBLIC_BLOG_URL || "/blog"}
-        className="mr-auto flex items-center hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
+        className="flex items-center hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
       >
         Read or create your own blog posts
       </Link>

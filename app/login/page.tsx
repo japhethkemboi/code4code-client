@@ -4,6 +4,7 @@ import { Button, InputComponent, toast, ToastContainer } from "c4cui";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { login } from "./utils";
+import { getMyProfile } from "../profile/utils";
 
 export default function Login() {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -12,9 +13,19 @@ export default function Login() {
   const [redirect, setRedirect] = useState<string | null>(null);
 
   useEffect(() => {
+    checkAuthStatus();
     const params = new URLSearchParams(window.location.search);
     setRedirect(params.get("redirect"));
   }, []);
+
+  const checkAuthStatus = async () => {
+    const res = await getMyProfile();
+
+    if (res.profile) {
+      router.back();
+      toast.info("You are already logged in.");
+    } else toast.error(res.error || "Couldn't check authentication status.");
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

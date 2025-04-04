@@ -38,7 +38,10 @@ export const ImagePicker = ({ image, setImage }: { image: string; setImage: (ima
       ) : (
         <PiUser size={94} className="cursor-pointer" />
       )}
-      <div className="flex flex-col w-full h-full gap-4 items-center justify-center p-4 absolute bg-black/40">
+      <div
+        onClick={() => fileInputRef.current?.click()}
+        className="flex flex-col w-full h-full gap-4 items-center justify-center p-4 absolute bg-black/40"
+      >
         <Button
           outline
           onClick={() => fileInputRef.current?.click()}

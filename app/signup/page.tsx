@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ImagePicker } from "./image_picker";
 import { fetchConfig } from "../fetchConfig";
 import { login } from "../login/utils";
+import { getMyProfile } from "../profile/utils";
 
 export default function Signup() {
   const [newUser, setNewUser] = useState<any>();
@@ -15,9 +16,19 @@ export default function Signup() {
   const [redirect, setRedirect] = useState<string | null>(null);
 
   useEffect(() => {
+    checkAuthStatus();
     const params = new URLSearchParams(window.location.search);
     setRedirect(params.get("redirect"));
   }, []);
+
+  const checkAuthStatus = async () => {
+    const res = await getMyProfile();
+
+    if (res.profile) {
+      router.back();
+      toast.info("You are already logged in.");
+    } else toast.error(res.error || "Couldn't check authentication status.");
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,52 +58,52 @@ export default function Signup() {
   };
 
   return (
-    <div className="pt-24 p-4 w-full flex flex-col gap-8 justify-center items-center">
-      <form className="w-full max-w-2xl flex flex-col gap-8" onSubmit={handleSubmit}>
-        <h1 className="text-4xl">Sign up</h1>
-        <ModalProvider>
+    <ModalProvider>
+      <div className="pt-24 p-4 w-full flex flex-col gap-8 justify-center items-center">
+        <form className="w-full max-w-2xl flex flex-col gap-8" onSubmit={handleSubmit}>
+          <h1 className="text-4xl">Sign up</h1>
           <ImagePicker image={newUser?.avatar} setImage={(e) => setNewUser({ ...newUser, avatar: e })} />
-        </ModalProvider>
-        <InputComponent
-          name="first_name"
-          type="name"
-          value={newUser?.first_name || ""}
-          onChange={(e) => setNewUser({ ...(newUser || {}), first_name: e })}
-          placeholder="First Name"
-        />
-        <InputComponent
-          name="last_name"
-          type="name"
-          value={newUser?.last_name || ""}
-          onChange={(e) => setNewUser({ ...(newUser || {}), last_name: e })}
-          placeholder="Last Name"
-        />
-        <InputComponent
-          name="email"
-          type="email"
-          value={newUser?.email || ""}
-          onChange={(e) => setNewUser({ ...(newUser || {}), email: e })}
-          placeholder="Email Address"
-        />
-        <InputComponent
-          name="password"
-          type="password"
-          minLength={8}
-          value={newUser?.password || ""}
-          onChange={(e) => setNewUser({ ...(newUser || {}), password: e })}
-          placeholder="Password"
-          generatePassword={true}
-        />
-        <Button type="submit" label="Sign up" className="p-4" disabled={loading} />
-      </form>
-      <Link
-        href={`/login${redirect ? `?redirect=${redirect}` : ""}`}
-        className="text-[var(--primary-color)] opacity-60 hover:underline"
-      >
-        Already have an account? Login.
-      </Link>
-      <ToastContainer />
-    </div>
+          <InputComponent
+            name="first_name"
+            type="name"
+            value={newUser?.first_name || ""}
+            onChange={(e) => setNewUser({ ...(newUser || {}), first_name: e })}
+            placeholder="First Name"
+          />
+          <InputComponent
+            name="last_name"
+            type="name"
+            value={newUser?.last_name || ""}
+            onChange={(e) => setNewUser({ ...(newUser || {}), last_name: e })}
+            placeholder="Last Name"
+          />
+          <InputComponent
+            name="email"
+            type="email"
+            value={newUser?.email || ""}
+            onChange={(e) => setNewUser({ ...(newUser || {}), email: e })}
+            placeholder="Email Address"
+          />
+          <InputComponent
+            name="password"
+            type="password"
+            minLength={8}
+            value={newUser?.password || ""}
+            onChange={(e) => setNewUser({ ...(newUser || {}), password: e })}
+            placeholder="Password"
+            generatePassword={true}
+          />
+          <Button type="submit" label="Sign up" className="p-4" disabled={loading} />
+        </form>
+        <Link
+          href={`/login${redirect ? `?redirect=${redirect}` : ""}`}
+          className="text-[var(--primary-color)] opacity-60 hover:underline"
+        >
+          Already have an account? Login.
+        </Link>
+        <ToastContainer />
+      </div>
+    </ModalProvider>
   );
 }
 /* eslint-disable @typescript-eslint/no-explicit-any */

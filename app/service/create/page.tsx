@@ -54,7 +54,7 @@ export default function CreateService() {
 
   return !profile ? (
     !fetchingProfile ? (
-      <div className="flex flex-col w-full h-full gap-8 justify-center items-center">
+      <div className="flex flex-col w-full h-full gap-8 justify-center items-center text-center">
         <p>You must sign in to view this page.</p>
         <Link
           href="/login"
@@ -79,7 +79,7 @@ export default function CreateService() {
       <ToastContainer />
     </div>
   ) : (
-    <div className="flex flex-col w-full h-full gap-8 justify-center items-center">
+    <div className="flex flex-col w-full h-full gap-8 justify-center items-center text-center">
       <p>404 Page not found</p>
       <Link
         href="/"

@@ -1,15 +1,8 @@
 import { ServiceTile } from "./service_tile";
 import { getServices } from "../utils";
-import { Service } from "../interface";
 
 export default async function Services() {
   const res = await getServices();
-
-  let services: { items: Service[]; next: string | null; previous: string | null; count: number } | null = null;
-
-  if (res.services) {
-    services = res.services;
-  }
 
   return (
     <div className="flex flex-col justify-center items-center w-full bg-[var(--background-color)] text-[var(--text-color)]">
@@ -23,8 +16,8 @@ export default async function Services() {
           </p>
         </div>
         <div className="flex flex-col grow gap-12 w-full">
-          {services ? (
-            services.items.map((service) => <ServiceTile key={service.slug} service={service} />)
+          {res.services ? (
+            res.services.items.map((service) => <ServiceTile key={service.slug} service={service} />)
           ) : (
             <div className="flex w-full gap-2">
               <p className="font-extralight opacity-80">No service posted. Inquire service at</p>

@@ -9,7 +9,7 @@ import { getMyProfile } from "@/app/profile/utils";
 import Link from "next/link";
 
 export default function CreateService() {
-  const [fetchingProfile, setFetchingProfile] = useState(false);
+  const [fetchingProfile, setFetchingProfile] = useState(true);
   const [profile, setProfile] = useState<Profile>();
   const [data, setData] = useState<{ name: string; description: string; story: string; poster?: string }>({
     name: "",
@@ -79,7 +79,7 @@ export default function CreateService() {
     </ModalProvider>
   ) : (
     <div className="flex flex-col w-full h-full gap-8 justify-center items-center">
-      <p>404 Page not found</p>
+      <p className="text-lg font-semibold">Page not found</p>
       <Link
         href="/"
         className="flex items-center hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"

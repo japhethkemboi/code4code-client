@@ -71,7 +71,11 @@ export const ServicesTile = () => {
                     outline={true}
                     invert={true}
                   />
-                  <Button className="w-full sm:w-auto" label="Get Service" onClick={() => router.push("/consult")} />
+                  <Button
+                    className="w-full sm:w-auto"
+                    label="Get Service"
+                    onClick={() => router.push("/booking/create/")}
+                  />
                 </div>
                 <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-4 mt-auto max-w-4xl self-center">
                   <div className="flex gap-2">

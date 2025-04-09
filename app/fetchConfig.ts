@@ -11,7 +11,6 @@ async function refreshTokens(): Promise<boolean> {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        "X-Request-Flag": "token-refresh",
       },
     })
       .then(async (res) => {

@@ -4,7 +4,7 @@ let refreshPromise: Promise<void> | null = null;
 async function refreshTokens(): Promise<void> {
   if (!refreshPromise) {
     isRefreshing = true;
-    refreshPromise = fetch(`${process.env.REACT_APP_SERVER_URL}/user/token/refresh/`, {
+    refreshPromise = fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/user/token/refresh/`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -43,7 +43,7 @@ export const fetchConfig = async (
     try {
       new URL(url);
     } catch {
-      newUrl = `${process.env.REACT_APP_SERVER_URL}${url}`;
+      newUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}${url}`;
     }
 
     if (!options.credentials) options.credentials = "include";

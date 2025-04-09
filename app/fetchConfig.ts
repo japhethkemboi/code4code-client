@@ -1,9 +1,10 @@
+let refreshPromise: Promise<boolean> | undefined;
 let isRefreshing = false;
-let refreshPromise: Promise<void> | null = null;
 
-async function refreshTokens(): Promise<void> {
-  if (!refreshPromise) {
+async function refreshTokens(): Promise<boolean> {
+  if (refreshPromise === undefined) {
     isRefreshing = true;
+
     refreshPromise = fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/user/token/refresh/`, {
       method: "POST",
       credentials: "include",
@@ -14,15 +15,19 @@ async function refreshTokens(): Promise<void> {
       },
     })
       .then(async (res) => {
-        if (!res.ok) {
-          throw new Error("Failed to refresh token");
-        }
-      })
-      .finally(() => {
         isRefreshing = false;
-        refreshPromise = null;
+
+        if (res.status === 200) {
+          return true;
+        } else return false;
+      })
+      .catch((err) => {
+        isRefreshing = false;
+        console.error("Token refresh failed:", err);
+        return false;
       });
   }
+
   return refreshPromise;
 }
 

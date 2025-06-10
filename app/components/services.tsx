@@ -3,6 +3,7 @@ import { Button, toast } from "c4cui";
 import { useEffect, useState } from "react";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import Link from "next/link";
+import DOMPurify from "dompurify";
 import { useRouter } from "next/navigation";
 //import { getServices } from "../services/utils";
 import { Service } from "../services/interface";

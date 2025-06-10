@@ -3,7 +3,6 @@ import { Button, toast } from "c4cui";
 import { useEffect, useState } from "react";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import Link from "next/link";
-import DOMPurify from "dompurify";
 import { useRouter } from "next/navigation";
 //import { getServices } from "../services/utils";
 import { Service } from "../services/interface";
@@ -57,12 +56,7 @@ export const ServicesTile = () => {
               >
                 {services[currentIndex]?.name}
               </Link>
-              <div
-                className="md:text-lg line-clamp-5 overflow-ellipsis"
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(services[currentIndex]?.description),
-                }}
-              />
+              <p>{services[currentIndex]?.description)}</p>
               <div className="flex flex-col gap-4 w-full sm:flex-row z-10">
                 <div className="flex flex-col gap-4 w-full sm:flex-row">
                   <Button

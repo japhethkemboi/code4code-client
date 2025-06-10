@@ -52,7 +52,7 @@ export const ServicesTile = () => {
             <div className="relative flex flex-col w-full gap-8 rounded-xl min-h-96 justify-center">
               <div className="absolute top-0 left-10 text-[12rem] font-extrabold opacity-20">0{currentIndex + 1}</div>
               <Link
-                href={`/service/${services[currentIndex]?.slug}`}
+                href={`/services/${services[currentIndex]?.slug}`}
                 className="cursor-pointer text-xl sm:text-2xl md:text-3xl tracking-tight leading-tight mt-auto"
               >
                 {services[currentIndex]?.name}
@@ -61,7 +61,7 @@ export const ServicesTile = () => {
               <div className="flex flex-col gap-4 w-full sm:flex-row z-10">
                 <div className="flex flex-col gap-4 w-full sm:flex-row">
                   <Button
-                    onClick={() => router.push(`/service/${services[currentIndex]?.slug}`)}
+                    onClick={() => router.push(`/services/${services[currentIndex]?.slug}`)}
                     label="Learn More"
                     className="w-full sm:w-auto"
                     outline={true}

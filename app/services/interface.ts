@@ -5,15 +5,13 @@ export interface Service {
   name: string;
   description: string;
   story: string;
-  poster: string;
+  poster?: string;
   tags?: string;
   orders?: number;
   projects_completed?: number;
   views?: number;
-  average_delivery_time: string;
+  average_delivery_time?: string;
   posted_by?: Partial<Profile>;
-  created_at?: string;
-  updated_at?: string;
   is_draft?: boolean;
 }
 

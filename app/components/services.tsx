@@ -5,35 +5,36 @@ import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import Link from "next/link";
 import DOMPurify from "dompurify";
 import { useRouter } from "next/navigation";
-import { getServices } from "../service/utils";
-import { Service } from "../service/interface";
+//import { getServices } from "../services/utils";
+import { Service } from "../services/interface";
+import servicesData from "../services/services.json";
 
 export const ServicesTile = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [services, setServices] = useState<Service[]>();
+  const [services, setServices] = useState<Service[]>(servicesData as Service[]);
   const router = useRouter();
 
-  useEffect(() => {
-    fetchServices();
-  }, []);
+ // useEffect(() => {
+ //   fetchServices();
+//  }, []);
 
-  useEffect(() => {
-    if (services && services.length > 0) {
-      const interval = setInterval(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % services.length);
-      }, 7000);
+//  useEffect(() => {
+//    if (services && services.length > 0) {
+//      const interval = setInterval(() => {
+//        setCurrentIndex((prevIndex) => (prevIndex + 1) % services.length);
+//      }, 7000);
 
-      return () => clearInterval(interval);
-    }
-  }, []);
+//      return () => clearInterval(interval);
+//    }
+//  }, []);
 
-  const fetchServices = async () => {
-    const res = await getServices({ limit: 12 });
+//  const fetchServices = async () => {
+//    const res = await getServices({ limit: 12 });
 
-    if (res.services) {
-      setServices(res.services.items);
-    } else toast.error(res.error || "Couldn't fetch services.");
-  };
+//    if (res.services) {
+//      setServices(res.services.items);
+//    } else toast.error(res.error || "Couldn't fetch services.");
+//  };
 
   return (
     <div className="flex flex-col w-full min-h-screen items-center justify-center bg-[var(--services-tile-background-color)] text-[var(--services-tile-text-color)]">

@@ -6,27 +6,28 @@ import { GoArrowUpRight } from "react-icons/go";
 import Link from "next/link";
 import { Button, toast } from "c4cui";
 import { PiPlus } from "react-icons/pi";
-import { getServices } from "../service/utils";
-import { Service } from "../service/interface";
+//import { getServices } from "../service/utils";
+import { Service } from "../services/interface";
+import servicesData from "../services/services.json";
 
 export const Header = () => {
   const [isServicesHovered, setIsServicesHovered] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServiceMenuOpen, setIsServiceMenuOpen] = useState(true);
-  const [services, setServices] = useState<Service[] | null>(null);
+  const [services, setServices] = useState<Service[] | null>(servicesData as Service[]);
 
-  useEffect(() => {
-    const fetchServices = async () => {
-      const res = await getServices({ offset: 0, limit: 6 });
+ // useEffect(() => {
+ //   const fetchServices = async () => {
+ //     const res = await getServices({ offset: 0, limit: 6 });
 
-      if (res.services) {
-        setServices(res.services.items);
-      } else {
-        toast.error(res.error || "Couldn't fetch services.");
-      }
-    };
-    fetchServices();
-  }, []);
+//      if (res.services) {
+//        setServices(res.services.items);
+//      } else {
+//        toast.error(res.error || "Couldn't fetch services.");
+//      }
+//    };
+//    fetchServices();
+//  }, []);
 
   return (
     <header className="fixed z-30 w-full flex justify-center items-center bg-[var(--header-background-color)] text-[var(--header-text-color)] backdrop-blur">
@@ -40,7 +41,7 @@ export const Header = () => {
 
         <div className="hidden md:flex gap-6 items-center">
           <Link
-            href="/service/list"
+            href="/services"
             onMouseEnter={() => setIsServicesHovered(true)}
             onClick={() => setIsServicesHovered(false)}
             className={`hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300`}
@@ -86,7 +87,7 @@ export const Header = () => {
                   what’s possible, making us the ideal partner to bring your vision to life.
                 </p>
                 <Link
-                  href="/service/list"
+                  href="/services"
                   onClick={() => setIsServicesHovered(false)}
                   className="hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
                 >
@@ -95,10 +96,10 @@ export const Header = () => {
               </div>
               <div className="flex flex-col p-4 gap-3 whitespace-nowrap items-start">
                 {services ? (
-                  services.map((service, index) => (
+                  services.slice(0, 6).map((service, index) => (
                     <Link
                       key={index}
-                      href={`/service/${service.slug}`}
+                      href={`/services/${service.slug}`}
                       onClick={() => setIsServicesHovered(false)}
                       className="hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300"
                     >
@@ -134,7 +135,7 @@ export const Header = () => {
                 <p className="flex justify-between gap-4 w-full items-center">
                   <Link
                     onClick={() => setIsMenuOpen(false)}
-                    href="/service/list"
+                    href="/services"
                     className="hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300 text-start"
                   >
                     Services
@@ -152,7 +153,7 @@ export const Header = () => {
                       services?.slice(0, 6).map((service, index) => (
                         <Link
                           key={index}
-                          href={`/service/${service.slug}`}
+                          href={`/services/${service.slug}`}
                           onClick={() => setIsMenuOpen(false)}
                           className="hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300 w-full text-start"
                         >
@@ -170,7 +171,7 @@ export const Header = () => {
                       </>
                     )}
                     <Link
-                      href="/service/list"
+                      href="/services"
                       onClick={() => setIsMenuOpen(false)}
                       className="hover:text-[var(--header-hover-color)]  hover:underline transition-colors duration-300 text-start"
                     >

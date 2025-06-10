@@ -1,8 +1,9 @@
-import { ServiceTile } from "./service_tile";
-import { getServices } from "../utils";
+import { ServiceTile } from "./components/ServiceTile";
+//import { getServices } from "../utils";
+import services from "./services.json";
 
 export default async function Services() {
-  const res = await getServices();
+//  const res = await getServices();
 
   return (
     <div className="flex flex-col justify-center items-center w-full bg-[var(--background-color)] text-[var(--text-color)]">
@@ -16,8 +17,8 @@ export default async function Services() {
           </p>
         </div>
         <div className="flex flex-col grow gap-12 w-full">
-          {res.services ? (
-            res.services.items.map((service) => <ServiceTile key={service.slug} service={service} />)
+          {services ? (
+            services.map((service) => <ServiceTile key={service.slug} service={service} />)
           ) : (
             <div className="flex w-full gap-2">
               <p className="font-extralight opacity-80">No service posted. Inquire service at</p>

@@ -9,7 +9,7 @@ import { toast } from "c4cui";
 import Link from "next/link";
 
 export function Blogs() {
-  const [blogs, setBlogs] = useState<Blog[]>();
+  const [blogs, setBlogs] = useState<Blog[]>([]);
 
   useEffect(() => {
     const fetchBlogs = async () => {

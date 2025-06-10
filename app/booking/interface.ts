@@ -1,5 +1,5 @@
 import { Profile } from "../profile/interface";
-import { Service } from "../service/interface";
+import { Service } from "../services/interface";
 
 export interface Booking {
   id: number;

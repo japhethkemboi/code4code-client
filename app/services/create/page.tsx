@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { ModalProvider, toast, ToastContainer } from "c4cui";
-import ServiceForm from "./form";
+import ServiceForm from "../components/ServiceForm.tsx";
 import { createService } from "../utils";
 import { useRouter } from "next/navigation";
 import { Profile } from "@/app/profile/interface";

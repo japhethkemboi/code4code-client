@@ -7,11 +7,11 @@ import DOMPurify from "dompurify";
 import { useRouter } from "next/navigation";
 //import { getServices } from "../services/utils";
 import { Service } from "../services/interface";
-import servicesData from "../services/services.json";
+import services from "../services/services.json";
 
 export const ServicesTile = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [services, setServices] = useState<Service[]>(servicesData as Service[]);
+  const [services, setServices] = useState<Service[]>(services as Service[]);
   const router = useRouter();
 
  // useEffect(() => {
@@ -57,7 +57,7 @@ export const ServicesTile = () => {
               >
                 {services[currentIndex]?.name}
               </Link>
-              <p>{services[currentIndex]?.description)}</p>
+              <p>{services[currentIndex]?.description}</p>
               <div className="flex flex-col gap-4 w-full sm:flex-row z-10">
                 <div className="flex flex-col gap-4 w-full sm:flex-row">
                   <Button
